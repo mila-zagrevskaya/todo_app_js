@@ -21,7 +21,7 @@ const formFields = [
   {
     id: 'deadline',
     label: 'deadlineWrap',
-    mess: 'invalid date format',
+    mess: 'Invalid date format',
     value: '',
     currentError: '',
   },
