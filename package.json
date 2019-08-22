@@ -9,7 +9,7 @@
     "start": "node dist/bundle.js",
     "lint": "eslint",
     "type": "git",
-    "url": "https://gitlab.nixdev.co/zahrevska/todolist.git"
+    "url": "https://gitlab.nixdev.co/zahrevska/todo_app.git"
   },
   "keywords": [],
   "author": "",
