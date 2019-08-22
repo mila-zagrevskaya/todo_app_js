@@ -12,7 +12,7 @@ class StartPageElement {
       tagName: 'h2', container: startBox, className: 'h2', text: 'No active todos',
     });
     this.addButton = addElem({
-      tagName: 'button', container: startBox, className: 'add-btn', text: 'Add todo', id = 'myBtn',
+      tagName: 'button', container: startBox, className: 'add-btn', text: 'Add todo', id:'myBtn'
     });
     this.addButton.addEventListener('click', this.openModal);
     this.link = addElem({

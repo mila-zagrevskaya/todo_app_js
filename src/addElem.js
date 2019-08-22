@@ -1,5 +1,5 @@
 export const addElem = ({
-  tagName, container, className, text = null, id = null,
+  tagName, container, className, text = null, id,
 }) => {
   const elem = document.createElement(tagName);
   elem.className = className;
