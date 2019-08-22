@@ -1,4 +1,3 @@
-/* eslint-disable import/named */
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
 import Modal from './modal';
@@ -13,9 +12,8 @@ class StartPageElement {
       tagName: 'h2', container: startBox, className: 'h2', text: 'No active todos',
     });
     this.addButton = addElem({
-      tagName: 'button', container: startBox, className: 'add-btn', text: 'Add todo',
+      tagName: 'button', container: startBox, className: 'add-btn', text: 'Add todo', id = 'myBtn',
     });
-    this.addButton.id = 'myBtn';
     this.addButton.addEventListener('click', this.openModal);
     this.link = addElem({
       tagName: 'a', container: startBox, className: 'show-resolved', text: 'Show resolved todos',
