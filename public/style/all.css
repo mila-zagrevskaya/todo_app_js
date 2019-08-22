@@ -1,0 +1,105 @@
+@import url(normalize.css);
+
+
+body {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+.wrapper {
+    min-height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.start-box {
+    position: relative;
+    top: 35%;
+    padding: 15px 30px;
+    text-align: center;
+}
+.add-btn {
+    margin: 30px 5px 70px;
+    padding: 10px 30px;
+}
+.add-btn:hover,
+.add-btn:focus,
+.add-btn:active {
+    outline: none;
+    color: #000;
+}
+.show-resolved {
+    display: block;
+    color: #c23232;
+    text-decoration: underline;
+}
+.show-resolved:hover {
+    text-decoration: none;
+}
+
+
+/* _______ Modal ___________ */
+.modal {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #00000060;
+}
+.todo-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    margin: 15% auto;
+    padding: 60px 40px 30px;
+    border: 2px solid #8290A0;
+    background-color: #fff;
+}
+
+.titleWrap,
+.descriptionWrap,
+.deadlineWrap {
+    width: 100%;
+}
+
+
+input,
+textarea,
+.createBtn {
+    width: 100%;
+    border-radius: 0;
+    border: 2px solid #8290A0;
+    padding: 10px 5px;
+    margin: 30px 0 5px;
+}
+input:valid {
+    border-bottom: greeen;
+}
+.label{
+    margin-top: 35px;
+}
+.todo-description {
+    min-height: 80px;
+}
+.todo-description,
+.todo-deadline {
+    min-width: 100%;
+}
+
+.createBtn {
+    border-radius: 5px;
+    margin: 50px 10px 30px;
+    max-width: 50%;
+}
+
+.errInfo{
+    position: absolute;
+    right: 0;
+    left: 10%;
+    color: #c23232;
+    margin:0 0 ;
+}
