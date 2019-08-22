@@ -1,5 +1,5 @@
 @import url(normalize.css);
-
+@import './style.css';
 
 body {
     font-size: 16px;
@@ -28,12 +28,12 @@ body {
     outline: none;
     color: #000;
 }
-.show-resolved {
+.resolved {
     display: block;
     color: #c23232;
     text-decoration: underline;
 }
-.show-resolved:hover {
+.resolved:hover {
     text-decoration: none;
 }
 
@@ -60,9 +60,9 @@ body {
     background-color: #fff;
 }
 
-.titleWrap,
-.descriptionWrap,
-.deadlineWrap {
+#title,
+#description,
+#deadline {
     width: 100%;
 }
 

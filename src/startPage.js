@@ -5,18 +5,16 @@ import Modal from './modal';
 
 class StartPageElement {
   constructor() {
-    const startBox = addElem({
-      tagName: 'div', container: wrapper, className: 'start-box', text: null,
-    });
+    const startBox = addElem({ tagName: 'div', container: wrapper, className: 'start-box' });
     this.title = addElem({
       tagName: 'h2', container: startBox, className: 'h2', text: 'No active todos',
     });
     this.addButton = addElem({
-      tagName: 'button', container: startBox, className: 'add-btn', text: 'Add todo', id:'myBtn'
+      tagName: 'button', container: startBox, className: 'add-btn', text: 'Add todo', id: 'myBtn',
     });
     this.addButton.addEventListener('click', this.openModal);
     this.link = addElem({
-      tagName: 'a', container: startBox, className: 'show-resolved', text: 'Show resolved todos',
+      tagName: 'a', container: startBox, className: 'resolved', text: 'Show resolved todos',
     });
     this.link.src = '#';
   }

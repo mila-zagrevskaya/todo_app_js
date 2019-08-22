@@ -72,15 +72,15 @@ class Modal {
     this.description.oninput = this.onChangeHandler;
 
     this.outputInfo = addElem({
-      tagName: 'p', container: this.descriptionWrap, className: 'errInfo', text: null,
+      tagName: 'p', container: this.descriptionWrap, className: 'errInfo',
     });
 
     this.deadlineWrap = addElem({
-      tagName: 'div', container: this.todoForm, className: 'deadlineWrap', text: null, id: 'deadline',
+      tagName: 'div', container: this.todoForm, className: 'deadlineWrap', id: 'deadline',
     });
 
     this.deadline = addElem({
-      tagName: 'input', container: this.deadlineWrap, className: 'todo-deadline form-control', text: null,
+      tagName: 'input', container: this.deadlineWrap, className: 'todo-deadline form-control',
     });
     this.deadline.type = 'date';
     this.deadline.placeholder = 'Deadline';
@@ -88,13 +88,13 @@ class Modal {
     this.deadline.oninput = this.onChangeHandler;
 
     this.outputInfo = addElem({
-      tagName: 'p', container: this.deadlineWrap, className: 'errInfo', text: null,
+      tagName: 'p', container: this.deadlineWrap, className: 'errInfo',
     });
 
     this.createBtn = addElem({
       tagName: 'button', container: this.todoForm, className: 'createBtn', text: 'Create',
     });
-    this.createBtn.onsubmit = this.sendForm;
+    this.createBtn.type = 'submit';
   }
 
   closeModal = (ev) => {
@@ -115,10 +115,10 @@ class Modal {
 
   onChangeHandler = ({ target }) => {
     const { parentNode, value } = target;
-    this.fieldCheck(parentNode, value);
+    this.fieldUpdate(parentNode, value);
   }
 
-  fieldCheck = (parentNode, value) => {
+  fieldUpdate = (parentNode, value) => {
     const activeInput = formFields.find((el) => parentNode.id === el.id);
     const errComponent = parentNode.querySelector('.errInfo');
     activeInput.value = value.trim();
@@ -132,14 +132,12 @@ class Modal {
     let isValidForm = true;
     formFields.map((el) => {
       const parentNode = document.getElementById(el.id);
-      this.fieldCheck(parentNode, el.value);
+      this.fieldUpdate(parentNode, el.value);
       el.currentError && (isValidForm = false);
-      console.log(`${el.label}: ${el.value}`);
     });
     if (isValidForm) {
       return;
     }
-    console.log('is not valid');
   }
 }
 

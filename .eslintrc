@@ -2,7 +2,6 @@
     "extends":  [
         "airbnb/base"
     ],
-    "plugins": ["prettier"],
     "parser": "babel-eslint",
     "env": {
         "browser": true
@@ -10,7 +9,8 @@
     "rules": {
         "no-console": ["off"],
         "generators":  ["off"],
-        "no-unused-expressions": [true,  "allow-fast-null-checks"],
+        "no-unused-expressions": ["off",  "allow-fast-null-checks"],
+        "no-useless-return": "off",
         "class-methods-use-this": ["off", { "exceptMethods": ["<...exceptions>"] }],
         "no-unused-vars": ["off", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
         "array-callback-return": ["off", {"allowImplicit": false}],

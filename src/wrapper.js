@@ -1,4 +1,3 @@
-/* eslint-disable import/named */
 import { addElem } from './addElem';
 
 export const wrapper = addElem(
