@@ -9,17 +9,16 @@ class StartPageElement {
     this.title = addElem({
       tagName: 'h2', container: startBox, className: 'h2', text: 'No active todos',
     });
-    this.addButton = addElem({
+    this.btnAddTodo = addElem({
       tagName: 'button', container: startBox, className: 'add-btn', text: 'Add todo', id: 'myBtn',
     });
-    this.addButton.addEventListener('click', this.openModal);
-    this.link = addElem({
-      tagName: 'a', container: startBox, className: 'resolved', text: 'Show resolved todos',
+    this.btnAddTodo.addEventListener('click', this.openModal);
+    this.span = addElem({
+      tagName: 'span', container: startBox, className: 'archive', text: 'Show resolved todos',
     });
-    this.link.src = '#';
   }
 
-  openModal = (even) => {
+  openModal = () => {
     // Get the modal
     const modal = new Modal();
   }

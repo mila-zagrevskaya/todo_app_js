@@ -8,6 +8,7 @@ body {
 .wrapper {
     min-height: 95vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -28,15 +29,11 @@ body {
     outline: none;
     color: #000;
 }
-.resolved {
+.archive {
     display: block;
     color: #c23232;
     text-decoration: underline;
 }
-.resolved:hover {
-    text-decoration: none;
-}
-
 
 /* _______ Modal ___________ */
 .modal {
@@ -102,4 +99,23 @@ input:valid {
     left: 10%;
     color: #c23232;
     margin:0 0 ;
+}
+
+/* ___TASK-LIST */
+.tasks-container,
+.content-wrap {
+    width: 80%;
+    margin: 50px 5px;
+    padding: 15px 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.title-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.title-wrap .add-btn {
+    margin:25px 15px 15px;
 }

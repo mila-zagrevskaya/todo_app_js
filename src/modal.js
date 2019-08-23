@@ -3,6 +3,9 @@ import { EIDRM } from 'constants';
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
 
+
+const url = 'http://localhost:3000/tasks';
+
 const formFields = [
   {
     id: 'title',
@@ -127,8 +130,32 @@ class Modal {
     errComponent.textContent = activeInput.currentError;
   }
 
-  sendForm = (ev) => {
-    ev.preventDefault();
+  postTask = () => {
+    const task = {
+      title: formFields[0].value,
+      description: formFields[1].value,
+      deadline: formFields[2].value,
+      id: new Date().getTime(),
+      doneStatus: false,
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(task),
+    })
+      .then(
+        response => response.json()
+          .then(
+            json => console.log(json),
+          ),
+      );
+  };
+
+  sendForm = (event) => {
+    event.preventDefault();
     let isValidForm = true;
     formFields.map((el) => {
       const parentNode = document.getElementById(el.id);
@@ -136,7 +163,7 @@ class Modal {
       el.currentError && (isValidForm = false);
     });
     if (isValidForm) {
-      return;
+      this.postTask();
     }
   }
 }
