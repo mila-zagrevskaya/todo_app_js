@@ -2,9 +2,8 @@
 import { EIDRM } from 'constants';
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
+import { url } from './index';
 
-
-const url = 'http://localhost:3000/tasks';
 
 const formFields = [
   {

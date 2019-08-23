@@ -102,15 +102,16 @@ input:valid {
 }
 
 /* ___TASK-LIST */
-.tasks-container,
-.content-wrap {
+.tasks-container{
     width: 80%;
     margin: 50px 5px;
     padding: 15px 20px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
-.title-wrap {
+.title-wrap,
+.content-wrap  {
     display: flex;
     justify-content: space-between;
     align-items: center;
