@@ -1,11 +1,10 @@
 import { addElem } from './addElem';
-import { contentWrap } from './tasksList';
 import Modal from './modal';
 import { url } from './index';
 
 
 class Task {
-  constructor(title, description, deadline) {
+  constructor(contentWrap, title, description, deadline) {
     this.task = addElem({ tagName: 'div', container: contentWrap, className: 'task-item' });
     this.iconBox = addElem({ tagName: 'div', container: this.task, className: 'icon-box' });
     this.iconCheckmark = addElem({ tagName: 'span', container: this.iconBox, className: 'icon-done_outline' });

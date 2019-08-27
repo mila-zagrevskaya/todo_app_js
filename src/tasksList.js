@@ -32,12 +32,11 @@ class TasksList {
         response => response.json()
           .then(
             json => json.map(item => {
-              this.taskItem = new Task(item.title, item.description, item.deadline);
+              this.taskItem = new Task(this.contentWrap, item.title, item.description, item.deadline);
             }),
           ),
       );
   }
 }
-export const contentWrap = addElem({ tagName: 'div', container, className: 'content-wrap' });
 
 export default TasksList;
