@@ -26,12 +26,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-circle:before {
-  content: "\e900";
+
+.icon-done_outline:before {
+  content: "\e904";
+  font-size: 1.3em;
 }
-.icon-checkmark:before {
-  content: "\e901";
-}
+
 .icon-close:before {
   content: "\e902";
   width: 30px;
@@ -43,4 +43,14 @@
 
 .icon-edit-pencil:before {
   content: "\e903";
+  font-size: 1.3em;
 }
+/* ____________ */
+
+.icon-fiber_manual_record:before {
+  content: "\e900";
+  color: #7ACEB3;
+  border-color: #5CB397;
+  font-size: 1.3em;
+}
+

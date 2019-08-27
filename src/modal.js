@@ -2,10 +2,12 @@
 import { EIDRM } from 'constants';
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
+import Task from './task';
+import { contentWrap } from './tasksList';
 import { url } from './index';
 
 
-const formFields = [
+export const formFields = [
   {
     id: 'title',
     label: 'titleWrap',
@@ -107,7 +109,6 @@ class Modal {
 
   isValidField = (value, id) => {
     let isError = Boolean(value);
-
     if (id === 'deadline') {
       const isValidDate = new Date(value).getTime() > new Date().getTime();
       !isValidDate && (isError = false);
@@ -148,10 +149,23 @@ class Modal {
       .then(
         response => response.json()
           .then(
-            json => console.log(json),
+            json => console.log('json', json),
           ),
       );
   };
+
+  getTasks = () => {
+    fetch(url)
+      .then(
+        response => response.json()
+          .then(
+            json => json.map(item => {
+              this.taskItem = new Task(item.title, item.description, item.deadline);
+            }),
+          ),
+      );
+  }
+
 
   sendForm = (event) => {
     event.preventDefault();
@@ -163,6 +177,9 @@ class Modal {
     });
     if (isValidForm) {
       this.postTask();
+      this.formContainer.remove();
+      contentWrap.textContent = '';
+      this.getTasks();
     }
   }
 }

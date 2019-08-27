@@ -1,12 +1,14 @@
 import { addElem } from './addElem';
-import { container } from './tasksList';
+import { contentWrap } from './tasksList';
+import Modal from './modal';
+import { url } from './index';
 
 
 class Task {
   constructor(title, description, deadline) {
-    const task = addElem({ tagName: 'div', container, className: 'task-item' });
+    this.task = addElem({ tagName: 'div', container: contentWrap, className: 'task-item' });
     this.iconBox = addElem({ tagName: 'div', container: this.task, className: 'icon-box' });
-    this.iconCheckmark = addElem({ tagName: 'span', container: this.iconBox, className: 'icon-checkmark' });
+    this.iconCheckmark = addElem({ tagName: 'span', container: this.iconBox, className: 'icon-done_outline' });
     this.iconEdit = addElem({ tagName: 'span', container: this.iconBox, className: 'icon-edit-pencil' });
     this.title = addElem({
       tagName: 'h5', container: this.task, className: 'title', text: title,
@@ -18,8 +20,9 @@ class Task {
     this.term = addElem({
       tagName: 'h6', container: this.deadline, className: 'term', text: deadline,
     });
-    this.termIcon = addElem({ tagName: 'span', container: this.deadline, className: 'icon-circle' });
+    this.termIcon = addElem({ tagName: 'span', container: this.deadline, className: 'icon-fiber_manual_record' });
   }
 }
+
 
 export default Task;

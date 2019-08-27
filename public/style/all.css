@@ -39,7 +39,7 @@ body {
 .modal {
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: #00000060;
@@ -117,6 +117,44 @@ input:valid {
     align-items: center;
     width: 100%;
 }
+.content-wrap {
+    align-items: stretch;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
 .title-wrap .add-btn {
     margin:25px 15px 15px;
+}
+
+/* ________task-item________ */
+.task-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 15px 25px;
+    margin: 20px;
+    text-align: center;
+    border: 2px solid #8290A0;
+    flex-basis: 30%;
+}
+.title {
+    margin: 10px;
+    font-size: 1.1em;
+}
+.title:first-letter {
+    text-transform: uppercase;
+}
+.icon-box {
+    text-align: right;
+}
+.deadline {
+    text-align: right;
+}
+.term {
+    display: inline;
+    margin: 0 10px;
+}
+
+.icon-box span {
+    margin: 10px 5px 10px 15px;
 }

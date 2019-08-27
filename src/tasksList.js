@@ -2,7 +2,6 @@ import { addElem } from './addElem';
 import { wrapper } from './wrapper';
 import Modal from './modal';
 import Task from './task';
-
 import { url } from './index';
 
 
@@ -14,7 +13,7 @@ class TasksList {
     this.btnAddTodo = addElem({
       tagName: 'button', container: this.titleWrap, className: 'add-btn', text: 'Add new todo', id: 'myBtn',
     });
-    this.btnAddTodo.addEventListener('click', this.openModal());
+    this.btnAddTodo.addEventListener('click', this.openModal);
     this.span = addElem({
       tagName: 'span', container: this.titleWrap, className: 'archive', text: 'Show resolved todos',
     });
@@ -24,7 +23,7 @@ class TasksList {
 
   openModal = (event) => {
     // Get the modal
-    // const modal = new Modal();
+    const modal = new Modal();
   };
 
   getTasks = () => {
@@ -33,12 +32,12 @@ class TasksList {
         response => response.json()
           .then(
             json => json.map(item => {
-              console.log('item', item);
               this.taskItem = new Task(item.title, item.description, item.deadline);
-            //   console.log(taskItem);
             }),
           ),
       );
   }
 }
+export const contentWrap = addElem({ tagName: 'div', container, className: 'content-wrap' });
+
 export default TasksList;
