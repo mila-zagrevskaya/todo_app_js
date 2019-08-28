@@ -1,9 +1,6 @@
 import { addElem } from './addElem';
-import Modal from './modal';
-import { url } from './index';
 
-
-class Task {
+export class Task {
   constructor(contentWrap, title, description, deadline) {
     this.task = addElem({ tagName: 'div', container: contentWrap, className: 'task-item' });
     this.iconBox = addElem({ tagName: 'div', container: this.task, className: 'icon-box' });
@@ -17,11 +14,8 @@ class Task {
     });
     this.deadline = addElem({ tagName: 'div', container: this.task, className: 'deadline' });
     this.term = addElem({
-      tagName: 'h6', container: this.deadline, className: 'term', text: deadline,
+      tagName: 'h6', container: this.deadline, className: 'term', text: `${deadline} days`,
     });
     this.termIcon = addElem({ tagName: 'span', container: this.deadline, className: 'icon-fiber_manual_record' });
   }
 }
-
-
-export default Task;

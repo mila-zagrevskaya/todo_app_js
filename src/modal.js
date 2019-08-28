@@ -2,12 +2,10 @@
 import { EIDRM } from 'constants';
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
-import Task from './task';
-import { contentWrap } from './tasksList';
-import { url } from './index';
+import { tasksList, tasksUrl } from './index';
 
 
-export const formFields = [
+const formFields = [
   {
     id: 'title',
     label: 'titleWrap',
@@ -32,7 +30,7 @@ export const formFields = [
 ];
 
 
-class Modal {
+export class Modal {
   constructor() {
     this.formContainer = addElem({
       tagName: 'div', container: wrapper, className: 'modal',
@@ -86,7 +84,7 @@ class Modal {
     this.deadline = addElem({
       tagName: 'input', container: this.deadlineWrap, className: 'todo-deadline form-control',
     });
-    this.deadline.type = 'date';
+    this.deadline.type = 'datetime-local';
     this.deadline.placeholder = 'Deadline';
     this.deadline.min = new Date().getTime();
     this.deadline.oninput = this.onChangeHandler;
@@ -134,40 +132,21 @@ class Modal {
     const task = {
       title: formFields[0].value,
       description: formFields[1].value,
-      deadline: formFields[2].value,
+      deadline: new Date(formFields[2].value).getTime(),
       id: new Date().getTime(),
       doneStatus: false,
     };
 
-    fetch(url, {
+    return fetch(tasksUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(task),
-    })
-      .then(
-        response => response.json()
-          .then(
-            json => console.log('json', json),
-          ),
-      );
+    });
   };
 
-  getTasks = () => {
-    fetch(url)
-      .then(
-        response => response.json()
-          .then(
-            json => json.map(item => {
-              this.taskItem = new Task(item.title, item.description, item.deadline);
-            }),
-          ),
-      );
-  }
-
-
-  sendForm = (event) => {
+  sendForm = async (event) => {
     event.preventDefault();
     let isValidForm = true;
     formFields.map((el) => {
@@ -176,13 +155,9 @@ class Modal {
       el.currentError && (isValidForm = false);
     });
     if (isValidForm) {
-      this.postTask();
+      await this.postTask();
       this.formContainer.remove();
-      contentWrap.textContent = '';
-      this.getTasks();
+      tasksList.updateTasks();
     }
   }
 }
-
-
-export default Modal;
