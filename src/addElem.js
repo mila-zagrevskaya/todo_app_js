@@ -6,6 +6,6 @@ export const addElem = ({
   elem.textContent = text;
   text && (elem.text = text);
   id && (elem.id = id);
-  (container).appendChild(elem);
+  (container || document.body).appendChild(elem);
   return elem;
 };

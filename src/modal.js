@@ -1,8 +1,6 @@
-
-import { EIDRM } from 'constants';
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
-import { tasksList, tasksUrl } from './index';
+import { tasksUrl, app } from './index';
 
 
 const formFields = [
@@ -93,14 +91,22 @@ export class Modal {
       tagName: 'p', container: this.deadlineWrap, className: 'errInfo',
     });
 
+    this.btnBox = addElem({
+      tagName: 'div', container: this.todoForm, className: 'btn-box',
+    });
+
     this.createBtn = addElem({
-      tagName: 'button', container: this.todoForm, className: 'createBtn', text: 'Create',
+      tagName: 'button', container: this.btnBox, className: 'btn create-btn', text: 'Create',
     });
     this.createBtn.type = 'submit';
   }
 
   closeModal = (ev) => {
-    if (ev.target === this.formContainer) {
+    if (
+      ev.target === this.formContainer
+      || ev.target === this.todoClose
+      || ev.target === this.cancelBtn
+    ) {
       this.formContainer.remove();
     }
   }
@@ -157,7 +163,7 @@ export class Modal {
     if (isValidForm) {
       await this.postTask();
       this.formContainer.remove();
-      tasksList.updateTasks();
+      app.updateTasks();
     }
   }
 }
