@@ -39,18 +39,23 @@
   position: absolute;
   top: 25px;
   right: 15px;
+  cursor: pointer;
 }
 
 .icon-edit-pencil:before {
   content: "\e903";
   font-size: 1.3em;
 }
+.icon-edit-pencil:hover:before,
+.icon-done_outline:hover:before {
+  color: #508775;
+  cursor: pointer;
+}
 /* ____________ */
 
 .icon-fiber_manual_record:before {
   content: "\e900";
-  color: #7ACEB3;
-  border-color: #5CB397;
+  color: #508775;
   font-size: 1.3em;
 }
 

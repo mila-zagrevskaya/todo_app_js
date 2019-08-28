@@ -6,15 +6,16 @@ body {
     font-family: sans-serif;
 }
 .wrapper {
+    position: relative;
     min-height: 95vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     align-content: center;
 }
 .start-box {
-    position: relative;
+    position: absolute;
     top: 35%;
     padding: 15px 30px;
     text-align: center;
@@ -23,11 +24,12 @@ body {
     margin: 30px 5px 70px;
     padding: 10px 30px;
     color: #3a2c2c;
+    cursor: pointer;
 }
 .add-btn:hover,
 .add-btn:focus,
 .add-btn:active,
-.createBtn:hover {
+.btn:hover {
     outline: none;
     color: #000;
 }
@@ -65,15 +67,15 @@ body {
     width: 100%;
 }
 
-
 input,
 textarea,
-.createBtn {
+.btn {
     width: 100%;
     border-radius: 0;
     border: 2px solid #8290A0;
     padding: 10px 5px;
     margin: 30px 0 5px;
+    align-self: center;
 }
 .label{
     margin-top: 35px;
@@ -86,14 +88,15 @@ textarea,
     min-width: 100%;
 }
 
-.createBtn {
+.btn {
     border-radius: 5px;
     margin: 50px 10px 30px;
     max-width: 50%;
     color: #3a2c2c;
+    align-self: center;
+    cursor: pointer;
 }
  
-
 .errInfo{
     position: absolute;
     right: 0;
@@ -103,22 +106,22 @@ textarea,
 }
 
 /* ___TASK-LIST */
-.tasks-container{
+.tasks-container {
     width: 80%;
-    margin: 50px 5px;
+    margin: 20px 5px 20px;
     padding: 15px 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 .title-wrap,
-.content-wrap  {
+.tasks-wrap  {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
-.content-wrap {
+.tasks-wrap {
     align-items: stretch;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -161,4 +164,23 @@ textarea,
 
 .icon-box span {
     margin: 10px 5px 10px 15px;
+}
+
+/* ____update modal */
+.btn-box {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.create-btn {
+    margin: 50px auto;
+}
+.save-btn {
+    max-width: 40%;
+    background-color: #9dbfb4;
+    border: 2px solid #6f877f;
+}
+.cancel-btn {
+    max-width: 40%;
 }
