@@ -1,6 +1,6 @@
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
-import Modal from './modal';
+import { Modal } from './modal';
 
 
 class StartPageElement {
