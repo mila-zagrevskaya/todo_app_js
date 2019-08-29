@@ -51,11 +51,3 @@
   color: #508775;
   cursor: pointer;
 }
-/* ____________ */
-
-.icon-fiber_manual_record:before {
-  content: "\e900";
-  color: #508775;
-  font-size: 1.3em;
-}
-
