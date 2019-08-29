@@ -1,8 +1,13 @@
 import { addElem } from './addElem';
+import { app } from '.';
 
 export class Task {
-  constructor(contentWrap, title, description, deadline) {
-    this.task = addElem({ tagName: 'div', container: contentWrap, className: 'task-item' });
+  constructor({
+    contentWrap, title, description, deadline, taskColor,
+  }) {
+    this.task = addElem({
+      tagName: 'div', container: contentWrap, className: 'task-item',
+    });
     this.iconBox = addElem({ tagName: 'div', container: this.task, className: 'icon-box' });
     this.iconCheckmark = addElem({ tagName: 'span', container: this.iconBox, className: 'icon-done_outline' });
     this.iconCheckmark.addEventListener('click', this.taskDone);
@@ -16,13 +21,14 @@ export class Task {
     });
     this.deadline = addElem({ tagName: 'div', container: this.task, className: 'deadline' });
     this.term = addElem({
-      tagName: 'h6', container: this.deadline, className: 'term', text: `${deadline} hours`,
+      tagName: 'h6', container: this.deadline, className: 'term', text: deadline,
     });
-    this.termIcon = addElem({ tagName: 'span', container: this.deadline, className: 'icon-fiber_manual_record' });
+    this.termIcon = addElem({ tagName: 'span', container: this.deadline, className: 'circle' });
+    this.termIcon.style.backgroundColor = taskColor;
   }
 
   updateTask = () => {
-    console.log('Update task');
+    console.log('task update');
   }
 
   taskDone = () => {

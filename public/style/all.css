@@ -20,16 +20,16 @@ body {
     padding: 15px 30px;
     text-align: center;
 }
-.add-btn {
+.add-button {
     margin: 30px 5px 70px;
     padding: 10px 30px;
     color: #3a2c2c;
     cursor: pointer;
 }
-.add-btn:hover,
-.add-btn:focus,
-.add-btn:active,
-.btn:hover {
+.add-button:hover,
+.add-button:focus,
+.add-button:active,
+.button:hover {
     outline: none;
     color: #000;
 }
@@ -69,7 +69,7 @@ body {
 
 input,
 textarea,
-.btn {
+.button {
     width: 100%;
     border-radius: 0;
     border: 2px solid #8290A0;
@@ -88,7 +88,7 @@ textarea,
     min-width: 100%;
 }
 
-.btn {
+.button {
     border-radius: 5px;
     margin: 50px 10px 30px;
     max-width: 50%;
@@ -126,7 +126,7 @@ textarea,
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
-.title-wrap .add-btn {
+.title-wrap .add-button {
     margin:25px 15px 15px;
 }
 
@@ -135,12 +135,23 @@ textarea,
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 15px 25px;
+    padding: 15px 15px;
     margin: 20px;
     text-align: center;
     border: 2px solid #8290A0;
     flex-basis: 30%;
 }
+@media (max-width: 1024px) {
+    .task-item {
+        flex-basis: 40%;
+    }
+}
+@media (max-width: 768px) {
+    .task-item {
+        flex-basis:90%;
+    }
+}
+
 .title {
     margin: 10px;
     font-size: 1.1em;
@@ -156,31 +167,35 @@ textarea,
 }
 .term {
     display: inline;
-    margin: 0 10px;
-    font-size: 1em;
-    line-height: 1.3em;
+    margin: 0 10px 0 0;
+    font-size: 0.9em;
+    line-height: 1em;
     vertical-align: top;
 }
 
-.icon-box span {
-    margin: 10px 5px 10px 15px;
+.circle {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0px 5px 0px 5px;
 }
 
 /* ____update modal */
-.btn-box {
+.buttons-container {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.create-btn {
+.create-button {
     margin: 50px auto;
 }
-.save-btn {
+.update-button {
     max-width: 40%;
     background-color: #9dbfb4;
     border: 2px solid #6f877f;
 }
-.cancel-btn {
+.cancel-button {
     max-width: 40%;
 }

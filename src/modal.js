@@ -91,21 +91,23 @@ export class Modal {
       tagName: 'p', container: this.deadlineWrap, className: 'errInfo',
     });
 
-    this.btnBox = addElem({
-      tagName: 'div', container: this.todoForm, className: 'btn-box',
+    this.buttonsContainer = addElem({
+      tagName: 'div',
+      container: this.todoForm,
+      className: 'buttons-container',
     });
 
-    this.createBtn = addElem({
-      tagName: 'button', container: this.btnBox, className: 'btn create-btn', text: 'Create',
+    this.createButton = addElem({
+      tagName: 'button', container: this.buttonsContainer, className: 'button create-button', text: 'Create',
     });
-    this.createBtn.type = 'submit';
+    this.createButton.type = 'submit';
   }
 
   closeModal = (ev) => {
     if (
       ev.target === this.formContainer
       || ev.target === this.todoClose
-      || ev.target === this.cancelBtn
+      || ev.target === this.cancelButton
     ) {
       this.formContainer.remove();
     }
