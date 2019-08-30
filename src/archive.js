@@ -1,8 +1,7 @@
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
 import { TasksList } from './tasksList';
-// import { Task } from './task';
-import { app } from './index';
+
 
 export class Archive {
   constructor(items) {

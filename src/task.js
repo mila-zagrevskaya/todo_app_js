@@ -1,5 +1,4 @@
 import { addElem } from './addElem';
-import { app } from '.';
 
 export class Task {
   constructor({

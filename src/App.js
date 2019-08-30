@@ -1,15 +1,13 @@
-/* eslint-disable no-await-in-loop */
+
 import { wrapper } from './wrapper';
 import { Modal } from './modal';
 import { tasksUrl } from './index';
 import { EmptyState } from './emptyState';
 import { TasksList } from './tasksList';
-// import { Archive } from './archive';
 
 
 export class App {
   openModal = () => new Modal();
-
 
   getItems = () => fetch(tasksUrl)
     .then(
@@ -21,7 +19,6 @@ export class App {
       response => response.json(),
     )
 
-
   updateExpiredState = (item) => fetch(`${tasksUrl}/${item.id}`, {
     method: 'PATCH',
     headers: { 'Content-type': 'application/json' },
@@ -32,10 +29,6 @@ export class App {
     const date = new Date().getTime();
     const expire = date >= deadline;
     return expire;
-  }
-
-  updateTasksScreen = () => {
-
   }
 
   init = async () => {
@@ -50,12 +43,10 @@ export class App {
     }
   }
 
-
   createStartScreen = async () => {
     wrapper.textContent = '';
     await this.init();
     const items = await this.getActiveItems();
-    console.log(items);
     items.length
       ? new TasksList(items)
       : new EmptyState();

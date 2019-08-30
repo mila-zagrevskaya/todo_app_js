@@ -78,7 +78,7 @@ export class TasksList {
     });
   }
 
-  getArchive = (items) => {
+  getArchive = () => {
     wrapper.textContent = '';
     return new Archive();
   }
