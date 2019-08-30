@@ -2,26 +2,50 @@ import moment from 'moment';
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
 import { Task } from './task';
-import { Archive } from './archive';
 import { app } from './index';
 
 
 export class TasksList {
   constructor(items) {
     this.tasksContainer = addElem({ tagName: 'div', container: wrapper, className: 'tasks-container' });
-    this.titleWrap = addElem({ tagName: 'div', container: this.tasksContainer, className: 'title-wrap' });
-    this.buttonAddTodo = addElem({
-      tagName: 'button', container: this.titleWrap, className: 'add-button', text: 'Add new todo', id: 'myButton',
-    });
-    this.buttonAddTodo.addEventListener('click', app.openModal);
-    this.span = addElem({
-      tagName: 'span', container: this.titleWrap, className: 'archive', text: 'Show resolved todos',
-    });
-    this.span.addEventListener('click', this.getArchive);
+    this.controlBar = addElem({ tagName: 'div', container: this.tasksContainer, className: 'title-wrap' });
+    this.separationStateItems(items);
     this.tasksWrap = addElem({ tagName: 'div', container: this.tasksContainer, className: 'tasks-wrap' });
     this.showTaskItems(items);
   }
 
+
+  makeControlsBarIsActive = (items) => {
+    this.controlBar.textContent = '';
+    this.buttonAddTodo = addElem({
+      tagName: 'button', container: this.controlBar, className: 'add-button', text: 'Add new todo', id: 'myButton',
+    });
+    this.buttonAddTodo.addEventListener('click', app.openModal);
+    this.span = addElem({
+      tagName: 'span', container: this.controlBar, className: 'archive', text: 'Show resolved todos',
+    });
+    this.span.addEventListener('click', this.showIsExpiredItems);
+  }
+
+ makeControlsBarIsExpired = (items) => {
+   this.controlBar.textContent = '';
+   this.span = addElem({
+     tagName: 'span', container: this.controlBar, className: 'icon-arrow-left-thick',
+   });
+ }
+
+
+ separationStateItems = (items) => {
+   if (app.getExpiredItems) {
+     this.makeControlsBarIsExpired(items);
+     app.getExpiredItems(items);
+     console.log('expired items', items);
+   }
+   if (app.getActiveItems) {
+     this.makeControlsBarIsActive(items);
+     console.log('Active items', items);
+   }
+ }
 
   countTime = (deadline) => {
     const date = moment(new Date().getTime());
@@ -71,21 +95,8 @@ export class TasksList {
     });
   }
 
-  showExpiredItems = items => {
-    items.map(item => {
-      app.isExpiredTask(item.deadline)
-        ? this.makeTaskItems(item) : null;
-    });
-  }
-
-  getArchive = () => {
-    wrapper.textContent = '';
-    return new Archive();
-  }
-
   mapItems = (items) => items.map(item => {
-    !app.isExpiredTask(item.deadline)
-      ? this.makeTaskItems(item) : null;
+    this.makeTaskItems(item);
   })
 
   showTaskItems = async (items) => {

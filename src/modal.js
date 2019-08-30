@@ -6,7 +6,7 @@ import { tasksUrl, app } from './index';
 const formFields = [
   {
     id: 'title',
-    label: 'titleWrap',
+    label: 'controlBar',
     mess: 'Title field cannot be empty',
     value: '',
     errorContent: '',
@@ -45,19 +45,19 @@ export class Modal {
     });
     this.todoClose.addEventListener('click', this.closeModal);
 
-    this.titleWrap = addElem({
-      tagName: 'div', container: this.todoForm, className: 'titleWrap', id: 'title',
+    this.controlBar = addElem({
+      tagName: 'div', container: this.todoForm, className: 'controlBar', id: 'title',
     });
 
     this.title = addElem({
-      tagName: 'input', container: this.titleWrap, className: 'todo-title form-control',
+      tagName: 'input', container: this.controlBar, className: 'todo-title form-control',
     });
     this.title.type = 'text';
     this.title.placeholder = 'Title';
     this.title.oninput = this.onChangeHandler;
 
     this.outputInfo = addElem({
-      tagName: 'p', container: this.titleWrap, className: 'errInfo',
+      tagName: 'p', container: this.controlBar, className: 'errInfo',
     });
 
     this.descriptionWrap = addElem({

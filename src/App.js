@@ -19,6 +19,11 @@ export class App {
       response => response.json(),
     )
 
+  getExpiredItems = () => fetch(`${tasksUrl}/?expired=true`)
+    .then(
+      response => response.json(),
+    )
+
   updateExpiredState = (item) => fetch(`${tasksUrl}/${item.id}`, {
     method: 'PATCH',
     headers: { 'Content-type': 'application/json' },
@@ -38,7 +43,7 @@ export class App {
       const isExpired = this.isExpiredTask(item.deadline);
       if (isExpired !== item.expired) {
         item.expired = isExpired;
-        await this.updateExpiredState(item, { expired: isExpired });
+        await this.updateExpiredState(item);
       }
     }
   }
