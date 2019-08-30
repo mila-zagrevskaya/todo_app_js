@@ -3,16 +3,16 @@ import { app } from '.';
 
 export class Task {
   constructor({
-    contentWrap, title, description, deadline, taskColor,
+    contentWrap, title, description, deadline, taskColor, id, expired,
   }) {
     this.task = addElem({
-      tagName: 'div', container: contentWrap, className: 'task-item',
+      tagName: 'div', container: contentWrap, className: 'task-item', id, expired,
     });
     this.iconBox = addElem({ tagName: 'div', container: this.task, className: 'icon-box' });
     this.iconCheckmark = addElem({ tagName: 'span', container: this.iconBox, className: 'icon-done_outline' });
     this.iconCheckmark.addEventListener('click', this.taskDone);
     this.iconEdit = addElem({ tagName: 'span', container: this.iconBox, className: 'icon-edit-pencil' });
-    this.iconEdit.addEventListener('click', this.updateTask);
+    this.iconEdit.addEventListener('click', this.editTask);
     this.title = addElem({
       tagName: 'h5', container: this.task, className: 'title', text: title,
     });
@@ -27,7 +27,7 @@ export class Task {
     this.termIcon.style.backgroundColor = taskColor;
   }
 
-  updateTask = () => {
+  editTask = () => {
     console.log('task update');
   }
 

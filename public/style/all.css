@@ -140,6 +140,7 @@ textarea,
     text-align: center;
     border: 2px solid #8290A0;
     flex-basis: 30%;
+    transition: all 0.3s;
 }
 @media (max-width: 1024px) {
     .task-item {
@@ -198,4 +199,9 @@ textarea,
 }
 .cancel-button {
     max-width: 40%;
+}
+
+/* __archive___ */
+.archive {
+    cursor: pointer;
 }

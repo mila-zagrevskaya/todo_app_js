@@ -16,5 +16,6 @@ export class EmptyState {
     this.span = addElem({
       tagName: 'span', container: startBox, className: 'archive', text: 'Show resolved todos',
     });
+    this.span.addEventListener('click', app.getArchive);
   }
 }

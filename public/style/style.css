@@ -33,7 +33,7 @@
 }
 
 .icon-close:before {
-  content: "\e902";
+  content: "\e905";
   width: 30px;
   height: 30px;
   position: absolute;
@@ -47,7 +47,17 @@
   font-size: 1.3em;
 }
 .icon-edit-pencil:hover:before,
-.icon-done_outline:hover:before {
+.icon-done_outline:hover:before,
+.icon-arrow-left-thick:before,
+.icon-arrow-thick-left:before {
   color: #508775;
   cursor: pointer;
+}
+.icon-arrow-left-thick:before,
+.icon-arrow-thick-left:before {
+  content: "\e902";
+  font-size: 3em;
+}
+.icon-arrow-thick-left:before {
+  content: "\e906";
 }

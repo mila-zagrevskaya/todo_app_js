@@ -2,6 +2,7 @@ import moment from 'moment';
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
 import { Task } from './task';
+import { Archive } from './archive';
 import { app } from './index';
 
 
@@ -16,8 +17,9 @@ export class TasksList {
     this.span = addElem({
       tagName: 'span', container: this.titleWrap, className: 'archive', text: 'Show resolved todos',
     });
+    this.span.addEventListener('click', this.getArchive);
     this.tasksWrap = addElem({ tagName: 'div', container: this.tasksContainer, className: 'tasks-wrap' });
-    this.mapItems(items);
+    this.showTaskItems(items);
   }
 
 
@@ -30,14 +32,14 @@ export class TasksList {
     return { minutes, hours, days };
   };
 
-
   getFormatedTime = ({ minutes, hours, days }) => {
     if (days >= 1) {
       const hour = (hours - (days * 24));
       return (`${days} day(s) ${hour} hour(s)`);
     }
     if (hours >= 1) {
-      return (`${hours} hour(s)`);
+      const minute = (minutes - (hours * 60));
+      return (`${hours} hour(s) ${minute} minute(s)`);
     }
     return (`${minutes} minute(s)`);
   }
@@ -52,9 +54,10 @@ export class TasksList {
     return ('#c23232');
   }
 
-
-  mapItems = (items) => items.map(item => {
-    const { title, description, deadline } = item;
+  makeTaskItems = (item) => {
+    const {
+      title, description, deadline, id, expired,
+    } = item;
     const time = this.countTime(deadline);
     const formatedTime = this.getFormatedTime(time);
     const taskColor = this.getTaskColor(time);
@@ -64,6 +67,29 @@ export class TasksList {
       description,
       deadline: formatedTime,
       taskColor,
+      expired,
     });
+  }
+
+  showExpiredItems = items => {
+    items.map(item => {
+      app.isExpiredTask(item.deadline)
+        ? this.makeTaskItems(item) : null;
+    });
+  }
+
+  getArchive = (items) => {
+    wrapper.textContent = '';
+    return new Archive();
+  }
+
+  mapItems = (items) => items.map(item => {
+    !app.isExpiredTask(item.deadline)
+      ? this.makeTaskItems(item) : null;
   })
+
+  showTaskItems = async (items) => {
+    await app.createStartScreen;
+    this.mapItems(items);
+  }
 }

@@ -143,6 +143,7 @@ export class Modal {
       deadline: new Date(formFields[2].value).getTime(),
       id: new Date().getTime(),
       doneStatus: false,
+      expired: false,
     };
 
     return fetch(tasksUrl, {
@@ -165,7 +166,7 @@ export class Modal {
     if (isValidForm) {
       await this.postTask();
       this.formContainer.remove();
-      app.updateTasks();
+      app.createStartScreen();
     }
   }
 }
