@@ -55,8 +55,10 @@
 }
 .icon-arrow-left-thick:before,
 .icon-arrow-thick-left:before {
+  display: inline-block;
   content: "\e902";
   font-size: 3em;
+  margin: 15px 5px 19px;
 }
 .icon-arrow-thick-left:before {
   content: "\e906";

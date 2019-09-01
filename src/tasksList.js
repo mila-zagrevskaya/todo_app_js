@@ -24,7 +24,7 @@ export class TasksList {
     this.span = addElem({
       tagName: 'span', container: this.controlBar, className: 'archive', text: 'Show resolved todos',
     });
-    this.span.addEventListener('click', this.showIsExpiredItems);
+    this.span.addEventListener('click', this.makeControlsBarIsExpired);
   }
 
  makeControlsBarIsExpired = (items) => {
@@ -32,6 +32,7 @@ export class TasksList {
    this.span = addElem({
      tagName: 'span', container: this.controlBar, className: 'icon-arrow-left-thick',
    });
+   this.span.addEventListener('click', this.makeControlsBarIsActive);
  }
 
 
