@@ -3,6 +3,7 @@ import {
   tasksUrl, activeTasksUrl, expiredTasksUrl, controlBar, tasksList,
 } from './index';
 import { EmptyState } from './emptyState';
+import { wrapper } from './wrapper';
 
 
 export class App {
@@ -27,23 +28,24 @@ export class App {
 
   init = async () => {
     const items = await this.getItems(tasksUrl);
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i += 1) {
       const item = items[i];
       const isExpired = this.isExpiredTask(item.deadline);
       if (isExpired !== item.expired) {
         item.expired = isExpired;
+        // eslint-disable-next-line no-await-in-loop
         await this.updateExpiredState(item);
       }
     }
   }
 
-  createExpiredList = async () => {
+  createExpiredScreen = async () => {
     const items = await this.getItems(expiredTasksUrl);
     tasksList.updateItems(items);
     controlBar.makeControlsBarIsExpired();
   }
 
-  createActiveTasksList = async () => {
+  createActiveScreen = async () => {
     const items = await this.getItems(activeTasksUrl);
     controlBar.makeControlsBarIsActive();
     items.length
@@ -53,6 +55,6 @@ export class App {
 
   createStartScreen = async () => {
     await this.init();
-    this.createActiveTasksList();
+    this.createActiveScreen();
   }
 }

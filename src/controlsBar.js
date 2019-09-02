@@ -9,14 +9,14 @@ export class ControlsBar {
 
   makeControlsBarIsActive = () => {
     this.wrapperControlsBar.textContent = '';
-    this.buttonAddTodo = addElem({
+    const buttonAddTodo = addElem({
       tagName: 'button', container: this.wrapperControlsBar, className: 'add-button', text: 'Add new todo', id: 'myButton',
     });
-    this.buttonAddTodo.addEventListener('click', app.openModal);
+    buttonAddTodo.addEventListener('click', app.openModal);
     this.span = addElem({
       tagName: 'span', container: this.wrapperControlsBar, className: 'archive', text: 'Show resolved todos',
     });
-    this.span.addEventListener('click', app.createExpiredList);
+    this.span.addEventListener('click', app.createExpiredScreen);
   }
 
   makeControlsBarIsExpired = () => {
@@ -24,6 +24,6 @@ export class ControlsBar {
     this.span = addElem({
       tagName: 'span', container: this.wrapperControlsBar, className: 'icon-arrow-left-thick',
     });
-    this.span.addEventListener('click', app.createActiveTasksList);
+    this.span.addEventListener('click', app.createActiveScreen);
   }
 }
