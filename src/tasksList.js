@@ -1,51 +1,13 @@
 import moment from 'moment';
 import { addElem } from './addElem';
-import { wrapper } from './wrapper';
+import { tasksContainer } from './wrapper';
 import { Task } from './task';
-import { app } from './index';
 
 
 export class TasksList {
-  constructor(items) {
-    this.tasksContainer = addElem({ tagName: 'div', container: wrapper, className: 'tasks-container' });
-    this.controlBar = addElem({ tagName: 'div', container: this.tasksContainer, className: 'title-wrap' });
-    this.separationStateItems(items);
-    this.tasksWrap = addElem({ tagName: 'div', container: this.tasksContainer, className: 'tasks-wrap' });
-    this.showTaskItems(items);
+  constructor() {
+    this.tasksWrap = addElem({ tagName: 'div', container: tasksContainer, className: 'tasks-wrap' });
   }
-
-
-  makeControlsBarIsActive = (items) => {
-    this.controlBar.textContent = '';
-    this.buttonAddTodo = addElem({
-      tagName: 'button', container: this.controlBar, className: 'add-button', text: 'Add new todo', id: 'myButton',
-    });
-    this.buttonAddTodo.addEventListener('click', app.openModal);
-    this.span = addElem({
-      tagName: 'span', container: this.controlBar, className: 'archive', text: 'Show resolved todos',
-    });
-    this.span.addEventListener('click', this.showIsExpiredItems);
-  }
-
- makeControlsBarIsExpired = (items) => {
-   this.controlBar.textContent = '';
-   this.span = addElem({
-     tagName: 'span', container: this.controlBar, className: 'icon-arrow-left-thick',
-   });
- }
-
-
- separationStateItems = (items) => {
-   if (app.getExpiredItems) {
-     this.makeControlsBarIsExpired(items);
-     app.getExpiredItems(items);
-     console.log('expired items', items);
-   }
-   if (app.getActiveItems) {
-     this.makeControlsBarIsActive(items);
-     console.log('Active items', items);
-   }
- }
 
   countTime = (deadline) => {
     const date = moment(new Date().getTime());
@@ -99,8 +61,8 @@ export class TasksList {
     this.makeTaskItems(item);
   })
 
-  showTaskItems = async (items) => {
-    await app.createStartScreen;
+  updateItems = (items) => {
+    this.tasksWrap.textContent = '';
     this.mapItems(items);
   }
 }

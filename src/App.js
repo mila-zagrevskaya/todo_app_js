@@ -1,25 +1,14 @@
-
-import { wrapper } from './wrapper';
 import { Modal } from './modal';
-import { tasksUrl } from './index';
+import {
+  tasksUrl, activeTasksUrl, expiredTasksUrl, controlBar, tasksList,
+} from './index';
 import { EmptyState } from './emptyState';
-import { TasksList } from './tasksList';
 
 
 export class App {
   openModal = () => new Modal();
 
-  getItems = () => fetch(tasksUrl)
-    .then(
-      response => response.json(),
-    )
-
-  getActiveItems = () => fetch(`${tasksUrl}/?expired=false`)
-    .then(
-      response => response.json(),
-    )
-
-  getExpiredItems = () => fetch(`${tasksUrl}/?expired=true`)
+  getItems = (url) => fetch(url)
     .then(
       response => response.json(),
     )
@@ -37,7 +26,7 @@ export class App {
   }
 
   init = async () => {
-    const items = await this.getItems();
+    const items = await this.getItems(tasksUrl);
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       const isExpired = this.isExpiredTask(item.deadline);
@@ -48,12 +37,22 @@ export class App {
     }
   }
 
-  createStartScreen = async () => {
-    wrapper.textContent = '';
-    await this.init();
-    const items = await this.getActiveItems();
+  createExpiredList = async () => {
+    const items = await this.getItems(expiredTasksUrl);
+    tasksList.updateItems(items);
+    controlBar.makeControlsBarIsExpired();
+  }
+
+  createActiveTasksList = async () => {
+    const items = await this.getItems(activeTasksUrl);
+    controlBar.makeControlsBarIsActive();
     items.length
-      ? new TasksList(items)
+      ? tasksList.updateItems(items)
       : new EmptyState();
+  }
+
+  createStartScreen = async () => {
+    await this.init();
+    this.createActiveTasksList();
   }
 }
