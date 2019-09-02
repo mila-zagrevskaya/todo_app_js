@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { addElem } from './addElem';
 import { tasksContainer } from './wrapper';
-import { Task } from './task';
+import { Task } from './Task';
 
 
 export class TasksList {
@@ -9,7 +9,7 @@ export class TasksList {
     this.tasksWrap = addElem({ tagName: 'div', container: tasksContainer, className: 'tasks-wrap' });
   }
 
-  countTime = (deadline) => {
+  _countTime = (deadline) => {
     const date = moment(new Date().getTime());
     const timeDeadline = moment(deadline);
     const minutes = timeDeadline.diff(date, 'minutes');
@@ -18,7 +18,7 @@ export class TasksList {
     return { minutes, hours, days };
   };
 
-  getFormatedTime = ({ minutes, hours, days }) => {
+  _getFormatedTime = ({ minutes, hours, days }) => {
     if (days >= 1) {
       const hour = (hours - (days * 24));
       return (`${days} day(s) ${hour} hour(s)`);
@@ -30,7 +30,7 @@ export class TasksList {
     return (`${minutes} minute(s)`);
   }
 
-  getTaskColor = ({ hours, days }) => {
+  _getTaskColor = ({ hours, days }) => {
     if (days >= 1) {
       return ('#508775');
     }
@@ -40,13 +40,13 @@ export class TasksList {
     return ('#c23232');
   }
 
-  makeTaskItems = (item) => {
+  _makeTaskItems = (item) => {
     const {
       title, description, deadline, id, expired,
     } = item;
-    const time = this.countTime(deadline);
-    const formatedTime = this.getFormatedTime(time);
-    const taskColor = this.getTaskColor(time);
+    const time = this._countTime(deadline);
+    const formatedTime = this._getFormatedTime(time);
+    const taskColor = this._getTaskColor(time);
     this.taskItem = new Task({
       contentWrap: this.tasksWrap,
       title,
@@ -57,12 +57,12 @@ export class TasksList {
     });
   }
 
-  mapItems = (items) => items.map(item => {
-    this.makeTaskItems(item);
+  _mapItems = (items) => items.map(item => {
+    this._makeTaskItems(item);
   })
 
   updateItems = (items) => {
     this.tasksWrap.textContent = '';
-    this.mapItems(items);
+    this._mapItems(items);
   }
 }

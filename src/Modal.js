@@ -113,7 +113,7 @@ export class Modal {
     }
   }
 
-  isValidField = (value, id) => {
+  _isValidField = (value, id) => {
     let isError = Boolean(value);
     if (id === 'deadline') {
       const isValidDate = new Date(value).getTime() > new Date().getTime();
@@ -124,19 +124,19 @@ export class Modal {
 
   onChangeHandler = ({ target }) => {
     const { parentNode, value } = target;
-    this.fieldUpdate(parentNode, value);
+    this._updateField(parentNode, value);
   }
 
-  fieldUpdate = (parentNode, value) => {
+  _updateField = (parentNode, value) => {
     const activeInput = formFields.find((el) => parentNode.id === el.id);
     const errComponent = parentNode.querySelector('.errInfo');
     activeInput.value = value.trim();
-    activeInput.currentError = this.isValidField(activeInput.value, activeInput.id)
+    activeInput.currentError = this._isValidField(activeInput.value, activeInput.id)
       ? '' : activeInput.mess;
     errComponent.textContent = activeInput.currentError;
   }
 
-  postTask = () => {
+  _postTask = () => {
     const task = {
       title: formFields[0].value,
       description: formFields[1].value,
@@ -160,13 +160,13 @@ export class Modal {
     let isValidForm = true;
     formFields.map((el) => {
       const parentNode = document.getElementById(el.id);
-      this.fieldUpdate(parentNode, el.value);
+      this._updateField(parentNode, el.value);
       el.currentError && (isValidForm = false);
     });
     if (isValidForm) {
-      await this.postTask();
+      await this._postTask();
       this.formContainer.remove();
-      app.createStartScreen();
+      app.init();
     }
   }
 }
