@@ -17,6 +17,6 @@ export class EmptyState {
     const archiveElement = addElem({
       tagName: 'span', container: startBox, className: 'archive', text: 'Show resolved todos',
     });
-    archiveElement.addEventListener('click', app._createExpiredScreen);
+    archiveElement.addEventListener('click', app.renderExpiredTasksScreen);
   }
 }

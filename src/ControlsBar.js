@@ -16,7 +16,7 @@ export class ControlsBar {
     const archiveElement = addElem({
       tagName: 'span', container: this.wrapperControlsBar, className: 'archive', text: 'Show resolved todos',
     });
-    archiveElement.addEventListener('click', app._createExpiredScreen);
+    archiveElement.addEventListener('click', app.renderExpiredTasksScreen);
   }
 
   _renderControlsBarForExpiredTasks = () => {
@@ -24,6 +24,6 @@ export class ControlsBar {
     this.span = addElem({
       tagName: 'span', container: this.wrapperControlsBar, className: 'icon-arrow-left-thick',
     });
-    this.span.addEventListener('click', app._createActiveScreen);
+    this.span.addEventListener('click', app.renderActiveTasksScreen);
   }
 }

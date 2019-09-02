@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { addElem } from './addElem';
 import { tasksContainer } from './wrapper';
 import { Task } from './Task';
@@ -9,50 +8,15 @@ export class TasksList {
     this.tasksWrap = addElem({ tagName: 'div', container: tasksContainer, className: 'tasks-wrap' });
   }
 
-  _countTime = (deadline) => {
-    const date = moment(new Date().getTime());
-    const timeDeadline = moment(deadline);
-    const minutes = timeDeadline.diff(date, 'minutes');
-    const hours = timeDeadline.diff(date, 'hours');
-    const days = timeDeadline.diff(date, 'days');
-    return { minutes, hours, days };
-  };
-
-  _getFormatedTime = ({ minutes, hours, days }) => {
-    if (days >= 1) {
-      const hour = (hours - (days * 24));
-      return (`${days} day(s) ${hour} hour(s)`);
-    }
-    if (hours >= 1) {
-      const minute = (minutes - (hours * 60));
-      return (`${hours} hour(s) ${minute} minute(s)`);
-    }
-    return (`${minutes} minute(s)`);
-  }
-
-  _getTaskColor = ({ hours, days }) => {
-    if (days >= 1) {
-      return ('#508775');
-    }
-    if (hours >= 4) {
-      return ('#e8d64f');
-    }
-    return ('#c23232');
-  }
-
   _makeTaskItems = (item) => {
     const {
       title, description, deadline, id, expired,
     } = item;
-    const time = this._countTime(deadline);
-    const formatedTime = this._getFormatedTime(time);
-    const taskColor = this._getTaskColor(time);
     this.taskItem = new Task({
       contentWrap: this.tasksWrap,
       title,
       description,
-      deadline: formatedTime,
-      taskColor,
+      deadline,
       expired,
     });
   }
