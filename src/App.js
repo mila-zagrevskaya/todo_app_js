@@ -1,7 +1,6 @@
 import { Modal } from './Modal';
-import {
-  tasksUrl, activeTasksUrl, expiredTasksUrl, controlBar, tasksList,
-} from './index';
+import { tasksUrl, activeTasksUrl, expiredTasksUrl } from './constans';
+import { controlBar, tasksList } from './index';
 import { EmptyState } from './EmptyState';
 
 export class App {

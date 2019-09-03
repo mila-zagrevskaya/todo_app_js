@@ -21,9 +21,9 @@ export class ControlsBar {
 
   _renderControlsBarForExpiredTasks = () => {
     this.wrapperControlsBar.textContent = '';
-    this.span = addElem({
+    const archiveElement = addElem({
       tagName: 'span', container: this.wrapperControlsBar, className: 'icon-arrow-left-thick',
     });
-    this.span.addEventListener('click', app.renderActiveTasksScreen);
+    archiveElement.addEventListener('click', app.renderActiveTasksScreen);
   }
 }

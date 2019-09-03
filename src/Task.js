@@ -3,32 +3,37 @@ import { addElem } from './addElem';
 
 export class Task {
   constructor({
-    contentWrap, title, description, deadline, id, expired,
+    contentWrap, title, description, deadline, doneStatus, id, expired,
   }) {
     const time = this._countTime(deadline);
-    const formatedTime = this._getFormatedTime(time);
-    const taskColor = this._getTaskColor(time);
-    const task = addElem({
+    this.formatedTime = this._getFormatedTime(time);
+    this.taskColor = this._getTaskColor(time);
+    this.description = description;
+    this.task = addElem({
       tagName: 'div', container: contentWrap, className: 'task-item', id, expired,
     });
-    const iconBox = addElem({ tagName: 'div', container: task, className: 'icon-box' });
+    this.renderTaskItems();
+  }
+
+  renderTaskItems = () => {
+    const iconBox = addElem({ tagName: 'div', container: this.task, className: 'icon-box' });
     const iconCheckmark = addElem({ tagName: 'span', container: iconBox, className: 'icon-done_outline' });
     iconCheckmark.addEventListener('click', this.taskDone);
     const iconEdit = addElem({ tagName: 'span', container: iconBox, className: 'icon-edit-pencil' });
     iconEdit.addEventListener('click', this.editTask);
     this.title = addElem({
-      tagName: 'h5', container: task, className: 'title', text: title,
+      tagName: 'h5', container: this.task, className: 'title', text: this.title,
     });
     this.description = addElem({
-      tagName: 'p', container: task, className: 'description', text: description,
+      tagName: 'p', container: this.task, className: 'description', text: this.description,
     });
-    this.deadline = addElem({ tagName: 'div', container: task, className: 'deadline' });
+    this.deadline = addElem({ tagName: 'div', container: this.task, className: 'deadline' });
     this.term = addElem({
-      tagName: 'h6', container: this.deadline, className: 'term', text: formatedTime,
+      tagName: 'h6', container: this.deadline, className: 'term', text: this.formatedTime,
     });
     this.termIcon = addElem({ tagName: 'span', container: this.deadline, className: 'circle' });
-    this.termIcon.style.backgroundColor = taskColor;
-  }
+    this.termIcon.style.backgroundColor = this.taskColor;
+  };
 
   _countTime = (deadline) => {
     const date = moment(new Date().getTime());
@@ -47,6 +52,9 @@ export class Task {
     if (hours >= 1) {
       const minute = (minutes - (hours * 60));
       return (`${hours} hour(s) ${minute} minute(s)`);
+    }
+    if (minutes <= 0) {
+      return (`${0} minutes`);
     }
     return (`${minutes} minute(s)`);
   }

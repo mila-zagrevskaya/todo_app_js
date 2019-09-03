@@ -8,9 +8,9 @@ export class TasksList {
     this.tasksWrap = addElem({ tagName: 'div', container: tasksContainer, className: 'tasks-wrap' });
   }
 
-  _makeTaskItems = (item) => {
+  _mapItems = (items) => items.map(item => {
     const {
-      title, description, deadline, id, expired,
+      title, description, deadline, doneStatus, id, expired,
     } = item;
     this.taskItem = new Task({
       contentWrap: this.tasksWrap,
@@ -18,11 +18,8 @@ export class TasksList {
       description,
       deadline,
       expired,
+      doneStatus,
     });
-  }
-
-  _mapItems = (items) => items.map(item => {
-    this._makeTaskItems(item);
   })
 
   updateItems = (items) => {

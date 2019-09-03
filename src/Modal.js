@@ -1,6 +1,7 @@
 import { addElem } from './addElem';
 import { wrapper } from './wrapper';
-import { tasksUrl, app } from './index';
+import { tasksUrl } from './constans';
+import { app } from './index';
 
 
 const formFields = [
