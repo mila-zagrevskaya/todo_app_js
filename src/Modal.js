@@ -1,4 +1,4 @@
-import { addElem } from './addElem';
+import { addElem, createElementWithAttributes } from './addElem';
 import { wrapper } from './wrapper';
 import { tasksUrl } from './constans';
 import { app } from './index';
@@ -7,7 +7,7 @@ import { app } from './index';
 const formFields = [
   {
     id: 'title',
-    label: 'controlBar',
+    label: 'titleWrap',
     mess: 'Title field cannot be empty',
     value: '',
     errorContent: '',
@@ -31,6 +31,10 @@ const formFields = [
 
 export class Modal {
   constructor() {
+    this.renderModalWindow();
+  }
+
+  renderModalWindow = () => {
     this.formContainer = addElem({
       tagName: 'div', container: wrapper, className: 'modal',
     });
@@ -46,50 +50,36 @@ export class Modal {
     });
     this.todoClose.addEventListener('click', this.closeModal);
 
-    this.controlBar = addElem({
-      tagName: 'div', container: this.todoForm, className: 'controlBar', id: 'title',
+    const titleWrap = this.getFieldWrapper('title');
+
+    const title = createElementWithAttributes({
+      tagName: 'input',
+      container: titleWrap,
+      attributes: { type: 'text', className: 'form-control', placeholder: 'Title' },
+      eventType: 'input',
+      eventHandler: this.onChangeHandler,
     });
 
-    this.title = addElem({
-      tagName: 'input', container: this.controlBar, className: 'todo-title form-control',
-    });
-    this.title.type = 'text';
-    this.title.placeholder = 'Title';
-    this.title.oninput = this.onChangeHandler;
+    const descriptionWrap = this.getFieldWrapper('description');
 
-    const outputInfo = addElem({
-      tagName: 'p', container: this.controlBar, className: 'errInfo',
-    });
-
-    this.descriptionWrap = addElem({
-      tagName: 'div', container: this.todoForm, className: 'descriptionWrap', id: 'description',
+    const description = createElementWithAttributes({
+      tagName: 'textarea',
+      container: descriptionWrap,
+      attributes: { className: 'form-control', placeholder: 'Description', rows: '3' },
+      eventType: 'input',
+      eventHandler: this.onChangeHandler,
     });
 
-    this.description = addElem({
-      tagName: 'textarea', container: this.descriptionWrap, className: 'todo-description form-control',
-    });
-    this.description.placeholder = 'Description';
-    this.description.rows = '3';
-    this.description.oninput = this.onChangeHandler;
+    const deadlineWrap = this.getFieldWrapper('deadline');
 
-    this.outputInfo = addElem({
-      tagName: 'p', container: this.descriptionWrap, className: 'errInfo',
-    });
-
-    this.deadlineWrap = addElem({
-      tagName: 'div', container: this.todoForm, className: 'deadlineWrap', id: 'deadline',
-    });
-
-    this.deadline = addElem({
-      tagName: 'input', container: this.deadlineWrap, className: 'todo-deadline form-control',
-    });
-    this.deadline.type = 'datetime-local';
-    this.deadline.placeholder = 'Deadline';
-    this.deadline.min = new Date().getTime();
-    this.deadline.oninput = this.onChangeHandler;
-
-    this.outputInfo = addElem({
-      tagName: 'p', container: this.deadlineWrap, className: 'errInfo',
+    const deadline = createElementWithAttributes({
+      tagName: 'input',
+      container: deadlineWrap,
+      attributes: {
+        type: 'datetime-local', className: 'form-control', placeholder: 'Deadline', min: new Date().getTime(),
+      },
+      eventType: 'input',
+      eventHandler: this.onChangeHandler,
     });
 
     const buttonsContainer = addElem({
@@ -98,10 +88,20 @@ export class Modal {
       className: 'buttons-container',
     });
 
-    this.createButton = addElem({
+    const createButton = addElem({
       tagName: 'button', container: buttonsContainer, className: 'button create-button', text: 'Create',
     });
-    this.createButton.type = 'submit';
+    createButton.type = 'submit';
+  };
+
+  getFieldWrapper = (id) => {
+    const fieldWrapper = addElem({
+      tagName: 'div', className: null, container: this.todoForm, id,
+    });
+    this.errorInfo = addElem({
+      tagName: 'p', container: fieldWrapper, className: 'errInfo',
+    });
+    return fieldWrapper;
   }
 
   closeModal = (ev) => {
@@ -126,6 +126,7 @@ export class Modal {
   onChangeHandler = ({ target }) => {
     const { parentNode, value } = target;
     this._updateField(parentNode, value);
+    console.log('target', target, 'parentNode', parentNode);
   }
 
   _updateField = (parentNode, value) => {

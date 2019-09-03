@@ -65,6 +65,7 @@ body {
 #description,
 #deadline {
     width: 100%;
+    position: relative;
 }
 
 input,
@@ -100,7 +101,8 @@ textarea,
 .errInfo{
     position: absolute;
     right: 0;
-    left: 10%;
+    left: 0;
+    bottom: -20%;
     color: #c23232;
     margin:0 0 ;
 }

@@ -2,38 +2,43 @@ import moment from 'moment';
 import { addElem } from './addElem';
 
 export class Task {
-  constructor({
-    contentWrap, title, description, deadline, doneStatus, id, expired,
-  }) {
+  constructor(item) {
+    this.item = item;
+    this.init();
+  }
+
+  init = () => {
+    const { deadline } = this.item;
     const time = this._countTime(deadline);
     this.formatedTime = this._getFormatedTime(time);
     this.taskColor = this._getTaskColor(time);
-    this.description = description;
-    this.title = title;
-    this.task = addElem({
-      tagName: 'div', container: contentWrap, className: 'task-item', id, expired,
-    });
     this.renderTaskItems();
-  }
+  };
 
   renderTaskItems = () => {
-    const iconBox = addElem({ tagName: 'div', container: this.task, className: 'icon-box' });
+    const {
+      contentWrap, id, expired, title, description,
+    } = this.item;
+    const task = addElem({
+      tagName: 'div', container: contentWrap, className: 'task-item', id, expired,
+    });
+    const iconBox = addElem({ tagName: 'div', container: task, className: 'icon-box' });
     const iconCheckmark = addElem({ tagName: 'span', container: iconBox, className: 'icon-done_outline' });
     iconCheckmark.addEventListener('click', this.taskDone);
     const iconEdit = addElem({ tagName: 'span', container: iconBox, className: 'icon-edit-pencil' });
     iconEdit.addEventListener('click', this.editTask);
-    const title = addElem({
-      tagName: 'h5', container: this.task, className: 'title', text: this.title,
+    const titleTask = addElem({
+      tagName: 'h5', container: task, className: 'title', text: title,
     });
-    const description = addElem({
-      tagName: 'p', container: this.task, className: 'description', text: this.description,
+    const descriptionTask = addElem({
+      tagName: 'p', container: task, className: 'description', text: description,
     });
-    this.deadline = addElem({ tagName: 'div', container: this.task, className: 'deadline' });
-    this.term = addElem({
-      tagName: 'h6', container: this.deadline, className: 'term', text: this.formatedTime,
+    const deadlineTask = addElem({ tagName: 'div', container: task, className: 'deadline' });
+    const term = addElem({
+      tagName: 'h6', container: deadlineTask, className: 'term', text: this.formatedTime,
     });
-    this.termIcon = addElem({ tagName: 'span', container: this.deadline, className: 'circle' });
-    this.termIcon.style.backgroundColor = this.taskColor;
+    const termIcon = addElem({ tagName: 'span', container: deadlineTask, className: 'circle' });
+    termIcon.style.backgroundColor = this.taskColor;
   };
 
   _countTime = (deadline) => {
