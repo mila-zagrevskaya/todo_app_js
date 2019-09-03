@@ -36,15 +36,15 @@ export class App {
     }
   }
 
-  renderExpiredTasksScreen = async () => {
+  _renderExpiredTasksScreen = async () => {
     const items = await this._getItems(expiredTasksUrl);
     tasksList.updateItems(items);
-    controlBar._renderControlsBarForExpiredTasks();
+    controlBar.renderControlsBarForExpiredTasks();
   }
 
-  renderActiveTasksScreen = async () => {
+  _renderActiveTasksScreen = async () => {
     const items = await this._getItems(activeTasksUrl);
-    controlBar._renderControlsBarForActiveTasks();
+    controlBar.renderControlsBarForActiveTasks();
     items.length
       ? tasksList.updateItems(items)
       : new EmptyState();
@@ -52,6 +52,6 @@ export class App {
 
   init = async () => {
     await this._updateTasksExpiredState();
-    this.renderActiveTasksScreen();
+    this._renderActiveTasksScreen();
   }
 }

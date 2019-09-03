@@ -9,6 +9,7 @@ export class Task {
     this.formatedTime = this._getFormatedTime(time);
     this.taskColor = this._getTaskColor(time);
     this.description = description;
+    this.title = title;
     this.task = addElem({
       tagName: 'div', container: contentWrap, className: 'task-item', id, expired,
     });
@@ -21,10 +22,10 @@ export class Task {
     iconCheckmark.addEventListener('click', this.taskDone);
     const iconEdit = addElem({ tagName: 'span', container: iconBox, className: 'icon-edit-pencil' });
     iconEdit.addEventListener('click', this.editTask);
-    this.title = addElem({
+    const title = addElem({
       tagName: 'h5', container: this.task, className: 'title', text: this.title,
     });
-    this.description = addElem({
+    const description = addElem({
       tagName: 'p', container: this.task, className: 'description', text: this.description,
     });
     this.deadline = addElem({ tagName: 'div', container: this.task, className: 'deadline' });

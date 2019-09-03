@@ -57,7 +57,7 @@ export class Modal {
     this.title.placeholder = 'Title';
     this.title.oninput = this.onChangeHandler;
 
-    this.outputInfo = addElem({
+    const outputInfo = addElem({
       tagName: 'p', container: this.controlBar, className: 'errInfo',
     });
 
@@ -92,14 +92,14 @@ export class Modal {
       tagName: 'p', container: this.deadlineWrap, className: 'errInfo',
     });
 
-    this.buttonsContainer = addElem({
+    const buttonsContainer = addElem({
       tagName: 'div',
       container: this.todoForm,
       className: 'buttons-container',
     });
 
     this.createButton = addElem({
-      tagName: 'button', container: this.buttonsContainer, className: 'button create-button', text: 'Create',
+      tagName: 'button', container: buttonsContainer, className: 'button create-button', text: 'Create',
     });
     this.createButton.type = 'submit';
   }
