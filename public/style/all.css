@@ -14,7 +14,7 @@ body {
     align-items: center;
     align-content: center;
 }
-.start-box {
+.empty-screen-container {
     position: absolute;
     top: 35%;
     padding: 15px 30px;
@@ -37,6 +37,9 @@ body {
     display: block;
     color: #c23232;
     text-decoration: underline;
+}
+.archive:hover {
+    text-decoration: none;
 }
 
 /* _______ Modal ___________ */
@@ -65,6 +68,7 @@ body {
 #description,
 #deadline {
     width: 100%;
+    position: relative;
 }
 
 input,
@@ -100,7 +104,8 @@ textarea,
 .errInfo{
     position: absolute;
     right: 0;
-    left: 10%;
+    left: 0;
+    bottom: -20%;
     color: #c23232;
     margin:0 0 ;
 }
@@ -140,6 +145,7 @@ textarea,
     text-align: center;
     border: 2px solid #8290A0;
     flex-basis: 30%;
+    transition: all 0.3s;
 }
 @media (max-width: 1024px) {
     .task-item {
@@ -198,4 +204,9 @@ textarea,
 }
 .cancel-button {
     max-width: 40%;
+}
+
+/* __archive___ */
+.archive {
+    cursor: pointer;
 }

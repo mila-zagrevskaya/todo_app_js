@@ -1,10 +1,24 @@
-import { addElem } from './addElem';
+import { createElementWithAttributes } from './createElementWithAttributes';
 
-export const wrapper = addElem(
+export const wrapper = createElementWithAttributes(
   {
     tagName: 'div',
     container: document.body,
-    className: 'wrapper',
-    text: null,
+    attributes: { className: 'wrapper' },
+  },
+);
+
+export const tasksContainer = createElementWithAttributes(
+  {
+    tagName: 'div',
+    container: wrapper,
+    attributes: { className: 'tasks-container' },
+  },
+);
+export const containerForEmptyScreen = createElementWithAttributes(
+  {
+    tagName: 'div',
+    container: wrapper,
+    attributes: { className: 'empty-screen-container' },
   },
 );
