@@ -1,22 +1,34 @@
-import { addElem } from './addElem';
-import { wrapper } from './wrapper';
+import { createElementWithAttributes } from './addElem';
+import { containerForEmptyScreen } from './wrapper';
 import { app } from './index';
 
 
 export class EmptyState {
   constructor() {
-    wrapper.textContent = '';
-    const startBox = addElem({ tagName: 'div', container: wrapper, className: 'start-box' });
-    const title = addElem({
-      tagName: 'h2', container: startBox, className: 'h2', text: 'No active todos',
+    const startBox = createElementWithAttributes({
+      tagName: 'div',
+      container: containerForEmptyScreen,
+      attributes: { className: 'start-box' },
     });
-    const buttonAddTodo = addElem({
-      tagName: 'button', container: startBox, className: 'add-button', text: 'Add todo', id: 'myButton',
+    const title = createElementWithAttributes({
+      tagName: 'h2',
+      container: startBox,
+      attributes: { className: 'h2', textContent: 'No active todos' },
     });
-    buttonAddTodo.addEventListener('click', app.openModal);
-    const archiveElement = addElem({
-      tagName: 'span', container: startBox, className: 'archive', text: 'Show resolved todos',
+    const buttonAddTodo = createElementWithAttributes({
+      tagName: 'button',
+      container: startBox,
+      attributes: { className: 'add-button', textContent: 'Add todo', id: 'myButton' },
+      eventType: 'click',
+      eventHandler: app.openModal,
     });
-    archiveElement.addEventListener('click', app.renderExpiredTasksScreen);
+
+    const archiveElement = createElementWithAttributes({
+      tagName: 'span',
+      container: startBox,
+      attributes: { className: 'archive', textContent: 'Show resolved todos' },
+      eventType: 'click',
+      eventHandler: app.renderExpiredTasksScreen,
+    });
   }
 }

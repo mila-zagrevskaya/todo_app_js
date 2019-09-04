@@ -1,5 +1,6 @@
 import { Modal } from './Modal';
 import { tasksUrl, activeTasksUrl, expiredTasksUrl } from './constans';
+import { tasksContainer, containerForEmptyScreen } from './wrapper';
 import { controlBar, tasksList } from './index';
 import { EmptyState } from './EmptyState';
 
@@ -36,22 +37,31 @@ export class App {
     }
   }
 
-  _renderExpiredTasksScreen = async () => {
+  renderExpiredTasksScreen = async () => {
+    this._cleanContainers();
     const items = await this._getItems(expiredTasksUrl);
+    controlBar.renderControlBar('expired');
     tasksList.updateItems(items);
-    controlBar.renderControlsBarForExpiredTasks();
   }
 
-  _renderActiveTasksScreen = async () => {
+  renderActiveTasksScreen = async () => {
+    this._cleanContainers();
     const items = await this._getItems(activeTasksUrl);
-    controlBar.renderControlsBarForActiveTasks();
-    items.length
-      ? tasksList.updateItems(items)
-      : new EmptyState();
+    if (items.length) {
+      controlBar.renderControlBar('active');
+      tasksList.updateItems(items);
+      return;
+    }
+    const emptyScreen = new EmptyState();
+  }
+
+  _cleanContainers = () => {
+    containerForEmptyScreen.textContent = '';
+    tasksContainer.textContent = '';
   }
 
   init = async () => {
     await this._updateTasksExpiredState();
-    this._renderActiveTasksScreen();
+    this.renderActiveTasksScreen();
   }
 }

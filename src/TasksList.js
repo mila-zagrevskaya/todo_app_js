@@ -1,13 +1,9 @@
-import { addElem } from './addElem';
+import { createElementWithAttributes } from './addElem';
 import { tasksContainer } from './wrapper';
 import { Task } from './Task';
 
 
 export class TasksList {
-  constructor() {
-    this.tasksWrap = addElem({ tagName: 'div', container: tasksContainer, className: 'tasks-wrap' });
-  }
-
   _mapItems = (items) => items.map(item => {
     const {
       title, description, deadline, doneStatus, id, expired,
@@ -23,7 +19,11 @@ export class TasksList {
   })
 
   updateItems = (items) => {
-    this.tasksWrap.textContent = '';
+    this.tasksWrap = createElementWithAttributes({
+      tagName: 'div',
+      container: tasksContainer,
+      attributes: { className: 'tasks-wrap', textContent: '' },
+    });
     this._mapItems(items);
   }
 }

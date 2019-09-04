@@ -14,7 +14,7 @@ body {
     align-items: center;
     align-content: center;
 }
-.start-box {
+.empty-screen-container {
     position: absolute;
     top: 35%;
     padding: 15px 30px;
@@ -37,6 +37,9 @@ body {
     display: block;
     color: #c23232;
     text-decoration: underline;
+}
+.archive:hover {
+    text-decoration: none;
 }
 
 /* _______ Modal ___________ */

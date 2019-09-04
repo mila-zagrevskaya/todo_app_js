@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { addElem } from './addElem';
+import { createElementWithAttributes } from './addElem';
 
 export class Task {
   constructor(item) {
@@ -19,26 +19,62 @@ export class Task {
     const {
       contentWrap, id, expired, title, description,
     } = this.item;
-    const task = addElem({
-      tagName: 'div', container: contentWrap, className: 'task-item', id, expired,
+    const task = createElementWithAttributes({
+      tagName: 'div',
+      container: contentWrap,
+      attributes: { className: 'task-item', id, expired },
     });
-    const iconBox = addElem({ tagName: 'div', container: task, className: 'icon-box' });
-    const iconCheckmark = addElem({ tagName: 'span', container: iconBox, className: 'icon-done_outline' });
-    iconCheckmark.addEventListener('click', this.taskDone);
-    const iconEdit = addElem({ tagName: 'span', container: iconBox, className: 'icon-edit-pencil' });
-    iconEdit.addEventListener('click', this.editTask);
-    const titleTask = addElem({
-      tagName: 'h5', container: task, className: 'title', text: title,
+
+    const iconBox = createElementWithAttributes({
+      tagName: 'div',
+      container: task,
+      attributes: { className: 'icon-box' },
     });
-    const descriptionTask = addElem({
-      tagName: 'p', container: task, className: 'description', text: description,
+    const iconCheckmark = createElementWithAttributes({
+      tagName: 'span',
+      container: iconBox,
+      attributes: { className: 'icon-done_outline' },
+      eventType: 'click',
+      eventHandler: this.taskDone,
     });
-    const deadlineTask = addElem({ tagName: 'div', container: task, className: 'deadline' });
-    const term = addElem({
-      tagName: 'h6', container: deadlineTask, className: 'term', text: this.formatedTime,
+
+    const iconEdit = createElementWithAttributes({
+      tagName: 'span',
+      container: iconBox,
+      attributes: { className: 'icon-edit-pencil' },
+      eventType: 'click',
+      eventHandler: this.editTask,
     });
-    const termIcon = addElem({ tagName: 'span', container: deadlineTask, className: 'circle' });
-    termIcon.style.backgroundColor = this.taskColor;
+
+    const titleTask = createElementWithAttributes({
+      tagName: 'h5',
+      container: task,
+      attributes: { className: 'title', text: title },
+    });
+
+    const descriptionTask = createElementWithAttributes({
+      tagName: 'p',
+      container: task,
+      attributes: { className: 'description', textContent: description },
+    });
+
+    const deadlineTask = createElementWithAttributes({
+      tagName: 'div',
+      container: task,
+      attributes: { className: 'deadline' },
+    });
+
+    const term = createElementWithAttributes({
+      tagName: 'h6',
+      container: deadlineTask,
+      attributes: { className: 'term', textContent: this.formatedTime },
+    });
+
+    const termIcon = createElementWithAttributes({
+      tagName: 'span',
+      container: deadlineTask,
+      attributes: { className: 'circle', style: `background-color: ${this.taskColor}` },
+    });
   };
 
   _countTime = (deadline) => {

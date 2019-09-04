@@ -1,4 +1,4 @@
-import { addElem, createElementWithAttributes } from './addElem';
+import { createElementWithAttributes } from './addElem';
 import { wrapper } from './wrapper';
 import { tasksUrl } from './constans';
 import { app } from './index';
@@ -35,20 +35,29 @@ export class Modal {
   }
 
   renderModalWindow = () => {
-    this.formContainer = addElem({
-      tagName: 'div', container: wrapper, className: 'modal',
+    this.formContainer = createElementWithAttributes({
+      tagName: 'div',
+      container: wrapper,
+      attributes: { className: 'modal' },
+      eventType: 'click',
+      eventHandler: this.closeModal,
     });
-    this.formContainer.addEventListener('click', this.closeModal);
 
-    this.todoForm = addElem({
-      tagName: 'form', container: this.formContainer, className: 'todo-form modal-content',
+    this.todoForm = createElementWithAttributes({
+      tagName: 'form',
+      container: this.formContainer,
+      attributes: { className: 'todo-form modal-content' },
+      eventType: 'submit',
+      eventHandler: this.sendForm,
     });
-    this.todoForm.onsubmit = this.sendForm;
 
-    this.todoClose = addElem({
-      tagName: 'span', container: this.todoForm, className: 'icon-close close',
+    this.todoClose = createElementWithAttributes({
+      tagName: 'span',
+      container: this.todoForm,
+      attributes: { className: 'icon-close close' },
+      eventType: 'click',
+      eventHandler: this.closeModal,
     });
-    this.todoClose.addEventListener('click', this.closeModal);
 
     const titleWrap = this.getFieldWrapper('title');
 
@@ -82,24 +91,29 @@ export class Modal {
       eventHandler: this.onChangeHandler,
     });
 
-    const buttonsContainer = addElem({
+    const buttonsContainer = createElementWithAttributes({
       tagName: 'div',
       container: this.todoForm,
-      className: 'buttons-container',
+      attributes: { className: 'buttons-container' },
     });
 
-    const createButton = addElem({
-      tagName: 'button', container: buttonsContainer, className: 'button create-button', text: 'Create',
+    const createButton = createElementWithAttributes({
+      tagName: 'button',
+      container: buttonsContainer,
+      attributes: { className: 'button create-button', textContent: 'Create', type: 'submit' },
     });
-    createButton.type = 'submit';
   };
 
   getFieldWrapper = (id) => {
-    const fieldWrapper = addElem({
-      tagName: 'div', className: null, container: this.todoForm, id,
+    const fieldWrapper = createElementWithAttributes({
+      tagName: 'div',
+      container: this.todoForm,
+      attributes: { id, className: null },
     });
-    this.errorInfo = addElem({
-      tagName: 'p', container: fieldWrapper, className: 'errInfo',
+    this.errorInfo = createElementWithAttributes({
+      tagName: 'p',
+      container: fieldWrapper,
+      attributes: { className: 'errInfo' },
     });
     return fieldWrapper;
   }
@@ -126,7 +140,7 @@ export class Modal {
   onChangeHandler = ({ target }) => {
     const { parentNode, value } = target;
     this._updateField(parentNode, value);
-    console.log('target', target, 'parentNode', parentNode);
+    console.log('target', target, 'parentNode', parentNode, 'value', value);
   }
 
   _updateField = (parentNode, value) => {

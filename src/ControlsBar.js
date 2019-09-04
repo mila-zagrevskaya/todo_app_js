@@ -1,29 +1,52 @@
-import { addElem } from './addElem';
+import { createElementWithAttributes } from './addElem';
 import { app } from './index';
 import { tasksContainer } from './wrapper';
 
 export class ControlsBar {
-  constructor() {
-    this.wrapperControlsBar = addElem({ tagName: 'div', container: tasksContainer, className: 'title-wrap' });
+  _renderControlsBarForActiveTasks = () => {
+    const buttonAddTodo = createElementWithAttributes({
+      tagName: 'button',
+      container: this.wrapperControlsBar,
+      attributes: { className: 'add-button', textContent: 'Add new todo', id: 'myButton' },
+      eventType: 'click',
+      eventHandler: app.openModal,
+    });
+
+    const archiveElement = createElementWithAttributes({
+      tagName: 'span',
+      container: this.wrapperControlsBar,
+      attributes: { className: 'archive', textContent: 'Show resolved todos' },
+      eventType: 'click',
+      eventHandler: app.renderExpiredTasksScreen,
+    });
   }
 
-  renderControlsBarForActiveTasks = () => {
-    this.wrapperControlsBar.textContent = '';
-    const buttonAddTodo = addElem({
-      tagName: 'button', container: this.wrapperControlsBar, className: 'add-button', text: 'Add new todo', id: 'myButton',
+  _renderControlsBarForExpiredTasks = () => {
+    const archiveElement = createElementWithAttributes({
+      tagName: 'span',
+      container: this.wrapperControlsBar,
+      attributes: { className: 'icon-arrow-left-thick' },
+      eventType: 'click',
+      eventHandler: app.renderActiveTasksScreen,
     });
-    buttonAddTodo.addEventListener('click', app.openModal);
-    const archiveElement = addElem({
-      tagName: 'span', container: this.wrapperControlsBar, className: 'archive', text: 'Show resolved todos',
-    });
-    archiveElement.addEventListener('click', app._renderExpiredTasksScreen);
   }
 
-  renderControlsBarForExpiredTasks = () => {
-    this.wrapperControlsBar.textContent = '';
-    const archiveElement = addElem({
-      tagName: 'span', container: this.wrapperControlsBar, className: 'icon-arrow-left-thick',
-    });
-    archiveElement.addEventListener('click', app._renderActiveTasksScreen);
+  renderControlBar = (status) => {
+    this.wrapperControlsBar = createElementWithAttributes(
+      {
+        tagName: 'div',
+        container: tasksContainer,
+        attributes: { className: 'title-wrap' },
+      },
+    );
+    if (status === 'expired') {
+      this._renderControlsBarForExpiredTasks();
+      return;
+    }
+    if (status === 'active') {
+      this._renderControlsBarForActiveTasks();
+      return;
+    }
+    console.error('isn`t valid parameter');
   }
 }
