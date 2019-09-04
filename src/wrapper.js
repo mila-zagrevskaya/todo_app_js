@@ -1,4 +1,4 @@
-import { createElementWithAttributes } from './addElem';
+import { createElementWithAttributes } from './createElementWithAttributes';
 
 export const wrapper = createElementWithAttributes(
   {

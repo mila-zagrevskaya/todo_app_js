@@ -1,4 +1,4 @@
-import { createElementWithAttributes } from './addElem';
+import { createElementWithAttributes } from './createElementWithAttributes';
 import { containerForEmptyScreen } from './wrapper';
 import { app } from './index';
 

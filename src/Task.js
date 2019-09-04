@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { createElementWithAttributes } from './addElem';
+import { createElementWithAttributes } from './createElementWithAttributes';
 
 export class Task {
   constructor(item) {

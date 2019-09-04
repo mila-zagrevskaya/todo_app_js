@@ -1,4 +1,4 @@
-import { createElementWithAttributes } from './addElem';
+import { createElementWithAttributes } from './createElementWithAttributes';
 import { wrapper } from './wrapper';
 import { tasksUrl } from './constans';
 import { app } from './index';
@@ -31,10 +31,10 @@ const formFields = [
 
 export class Modal {
   constructor() {
-    this.renderModalWindow();
+    this._renderModalWindow();
   }
 
-  renderModalWindow = () => {
+  _renderModalWindow = () => {
     this.formContainer = createElementWithAttributes({
       tagName: 'div',
       container: wrapper,
@@ -108,7 +108,7 @@ export class Modal {
     const fieldWrapper = createElementWithAttributes({
       tagName: 'div',
       container: this.todoForm,
-      attributes: { id, className: null },
+      attributes: { id },
     });
     this.errorInfo = createElementWithAttributes({
       tagName: 'p',
