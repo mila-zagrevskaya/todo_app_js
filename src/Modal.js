@@ -33,7 +33,6 @@ export class Modal {
   constructor(item) {
     this.item = item;
     this._renderModalWindow();
-    console.log('item', this.item);
   }
 
   _renderModalWindow = () => {
