@@ -104,6 +104,7 @@ export class Modal {
     });
   };
 
+
   getFieldWrapper = (id) => {
     const fieldWrapper = createElementWithAttributes({
       tagName: 'div',

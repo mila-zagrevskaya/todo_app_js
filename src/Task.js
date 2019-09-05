@@ -115,10 +115,8 @@ export class Task {
   }
 
   _getIsDoneColor = (doneStatus) => {
-    if (doneStatus === true) {
-      return ('#508775');
-    }
-    return '#000';
+    const color = doneStatus ? '#508775' : '#000';
+    return color;
   }
 
   editTask = () => {
