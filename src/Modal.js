@@ -112,7 +112,7 @@ export class Modal {
   }
 
   _renderButtonsForEditTask = (item) => {
-    const buttonForCancel = createElementWithAttributes({
+    this.buttonForCancel = createElementWithAttributes({
       tagName: 'button',
       container: this.buttonsContainer,
       attributes: { className: 'button cancel-button', textContent: 'Cancel' },
@@ -155,7 +155,7 @@ export class Modal {
     if (
       ev.target === this.formContainer
       || ev.target === this.todoClose
-      || ev.target === this.cancelButton
+      || ev.target === this.buttonForCancel
     ) {
       this.formContainer.remove();
     }

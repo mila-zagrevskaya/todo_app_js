@@ -1,6 +1,6 @@
 import { Modal } from './Modal';
 import {
-  tasksUrl, activeTasksUrl, tasksArchiveUrl,
+  tasksUrl, activeTasksUrl, completedTasksUrl, expiredTasksUrl,
 } from './constans';
 import { tasksContainer, containerForEmptyScreen } from './wrapper';
 import { controlBar, tasksList } from './index';
@@ -42,7 +42,8 @@ export class App {
 
   renderArchiveTasksScreen = async () => {
     this._cleanContainers();
-    const items = await this._getItems(tasksArchiveUrl);
+    const items = await this._getItems(expiredTasksUrl);
+    const doneItems = await this._getItems(completedTasksUrl);
     controlBar.renderControlBar('expired');
     tasksList.updateItems(items);
   }
