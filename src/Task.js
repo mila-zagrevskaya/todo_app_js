@@ -1,5 +1,7 @@
 import moment from 'moment';
 import { createElementWithAttributes } from './createElementWithAttributes';
+import { app } from './index';
+import { tasksUrl } from './constans';
 
 export class Task {
   constructor(item) {
@@ -17,12 +19,14 @@ export class Task {
 
   renderTaskItems = () => {
     const {
-      contentWrap, id, expired, title, description,
+      contentWrap, id, expired, title, description, doneStatus,
     } = this.item;
     const task = createElementWithAttributes({
       tagName: 'div',
       container: contentWrap,
-      attributes: { className: 'task-item', id, expired },
+      attributes: {
+        className: 'task-item', id, expired, doneStatus,
+      },
     });
 
     const iconBox = createElementWithAttributes({
@@ -30,14 +34,13 @@ export class Task {
       container: task,
       attributes: { className: 'icon-box' },
     });
-    const iconCheckmark = createElementWithAttributes({
+    this.isDone = createElementWithAttributes({
       tagName: 'span',
       container: iconBox,
-      attributes: { className: 'icon-done_outline' },
+      attributes: { className: 'icon-checkmark', style: `color: ${this._getIsDoneColor(this.item.doneStatus)}` },
       eventType: 'click',
-      eventHandler: this.taskDone,
+      eventHandler: this.changeDoneStatus,
     });
-
     const iconEdit = createElementWithAttributes({
       tagName: 'span',
       container: iconBox,
@@ -49,7 +52,7 @@ export class Task {
     const titleTask = createElementWithAttributes({
       tagName: 'h5',
       container: task,
-      attributes: { className: 'title', text: title },
+      attributes: { className: 'title', textContent: title },
     });
 
     const descriptionTask = createElementWithAttributes({
@@ -111,11 +114,26 @@ export class Task {
     return ('#c23232');
   }
 
+  _getIsDoneColor = (doneStatus) => {
+    if (doneStatus === true) {
+      return ('#508775');
+    }
+    return '#000';
+  }
+
   editTask = () => {
     console.log('task update');
   }
 
-  taskDone = () => {
-    console.log('Task done');
+  _updateDoneStatus = (item) => fetch(`${tasksUrl}/${item.id}`, {
+    method: 'PATCH',
+    headers: { 'Content-type': 'application/json' },
+    body: JSON.stringify({ doneStatus: item.doneStatus }),
+  });
+
+  changeDoneStatus = async () => {
+    this.item.doneStatus = !this.item.doneStatus;
+    this._getIsDoneColor(this.item.doneStatus);
+    await this._updateDoneStatus(this.item);
   }
 }

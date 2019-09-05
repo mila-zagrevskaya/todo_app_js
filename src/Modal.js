@@ -140,7 +140,6 @@ export class Modal {
   onChangeHandler = ({ target }) => {
     const { parentNode, value } = target;
     this._updateField(parentNode, value);
-    console.log('target', target, 'parentNode', parentNode, 'value', value);
   }
 
   _updateField = (parentNode, value) => {

@@ -17,7 +17,7 @@ export class ControlsBar {
       container: this.wrapperControlsBar,
       attributes: { className: 'archive', textContent: 'Show resolved todos' },
       eventType: 'click',
-      eventHandler: app.renderExpiredTasksScreen,
+      eventHandler: app.renderArchiveTasksScreen,
     });
   }
 

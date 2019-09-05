@@ -1,8 +1,11 @@
 import { Modal } from './Modal';
-import { tasksUrl, activeTasksUrl, expiredTasksUrl } from './constans';
+import {
+  tasksUrl, activeTasksUrl, tasksArchiveUrl,
+} from './constans';
 import { tasksContainer, containerForEmptyScreen } from './wrapper';
 import { controlBar, tasksList } from './index';
 import { EmptyState } from './EmptyState';
+
 
 export class App {
   openModal = () => new Modal();
@@ -37,9 +40,9 @@ export class App {
     }
   }
 
-  renderExpiredTasksScreen = async () => {
+  renderArchiveTasksScreen = async () => {
     this._cleanContainers();
-    const items = await this._getItems(expiredTasksUrl);
+    const items = await this._getItems(tasksArchiveUrl);
     controlBar.renderControlBar('expired');
     tasksList.updateItems(items);
   }

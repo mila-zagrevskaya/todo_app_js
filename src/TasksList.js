@@ -13,6 +13,7 @@ export class TasksList {
       title,
       description,
       deadline,
+      id,
       expired,
       doneStatus,
     });
