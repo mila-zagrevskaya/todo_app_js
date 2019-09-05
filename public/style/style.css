@@ -32,6 +32,11 @@
   font-size: 1.3em;
 }
 
+.icon-checkmark:before {
+  content: "\ea10";
+  font-size: 1.4em;
+}
+
 .icon-close:before {
   content: "\e905";
   width: 30px;
@@ -47,14 +52,16 @@
   font-size: 1.3em;
 }
 .icon-edit-pencil:hover:before,
+.icon-checkmark:hover:before,
 .icon-done_outline:hover:before,
 .icon-arrow-left-thick:before,
 .icon-arrow-thick-left:before {
-  color: #508775;
+  color: #8ebdae;
   cursor: pointer;
 }
 .icon-arrow-left-thick:before,
 .icon-arrow-thick-left:before {
+  color: #508775;
   display: inline-block;
   content: "\e902";
   font-size: 3em;
