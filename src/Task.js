@@ -120,6 +120,7 @@ export class Task {
   }
 
   editTask = () => {
+    app.openModal(this.item);
     console.log('task update');
   }
 

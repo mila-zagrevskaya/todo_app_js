@@ -3,7 +3,7 @@ import { app } from './index';
 import { tasksContainer } from './wrapper';
 
 export class ControlsBar {
-  _renderControlsBarForActiveTasks = () => {
+  _renderControlsBarForActiveTasks = (item) => {
     const buttonAddTodo = createElementWithAttributes({
       tagName: 'button',
       container: this.wrapperControlsBar,
@@ -31,7 +31,7 @@ export class ControlsBar {
     });
   }
 
-  renderControlBar = (status) => {
+  renderControlBar = (status, item) => {
     this.wrapperControlsBar = createElementWithAttributes(
       {
         tagName: 'div',
@@ -44,7 +44,7 @@ export class ControlsBar {
       return;
     }
     if (status === 'active') {
-      this._renderControlsBarForActiveTasks();
+      this._renderControlsBarForActiveTasks(item);
       return;
     }
     console.error('isn`t valid parameter');

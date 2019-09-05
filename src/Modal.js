@@ -30,8 +30,10 @@ const formFields = [
 
 
 export class Modal {
-  constructor() {
+  constructor(item) {
+    this.item = item;
     this._renderModalWindow();
+    console.log('item', this.item);
   }
 
   _renderModalWindow = () => {
@@ -91,18 +93,48 @@ export class Modal {
       eventHandler: this.onChangeHandler,
     });
 
-    const buttonsContainer = createElementWithAttributes({
+    this.buttonsContainer = createElementWithAttributes({
       tagName: 'div',
       container: this.todoForm,
       attributes: { className: 'buttons-container' },
     });
-
-    const createButton = createElementWithAttributes({
-      tagName: 'button',
-      container: buttonsContainer,
-      attributes: { className: 'button create-button', textContent: 'Create', type: 'submit' },
-    });
+    this.updateButtonsControlBar(this.item);
   };
+
+  _renderButtonForCreateTask = () => {
+    const buttonForCreate = createElementWithAttributes({
+      tagName: 'button',
+      container: this.buttonsContainer,
+      attributes: { className: 'button create-button', textContent: 'Create', type: 'submit' },
+      eventType: 'submit',
+      eventHandler: this.sendForm,
+    });
+  }
+
+  _renderButtonsForEditTask = (item) => {
+    const buttonForCancel = createElementWithAttributes({
+      tagName: 'button',
+      container: this.buttonsContainer,
+      attributes: { className: 'button cancel-button', textContent: 'Cancel' },
+      eventType: 'click',
+      eventHandler: this.closeModal,
+    });
+    const buttonForSaveEdit = createElementWithAttributes({
+      tagName: 'button',
+      container: this.buttonsContainer,
+      attributes: { className: 'button update-button', textContent: 'Save' },
+      eventType: 'click',
+      eventHandler: this.editModal,
+    });
+  }
+
+  updateButtonsControlBar = (item) => {
+    const modalButtons = item.id
+      ? this._renderButtonsForEditTask(item.id)
+      : this._renderButtonForCreateTask();
+    console.log('item', item);
+    return modalButtons;
+  }
 
 
   getFieldWrapper = (id) => {

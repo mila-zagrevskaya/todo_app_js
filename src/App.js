@@ -8,7 +8,7 @@ import { EmptyState } from './EmptyState';
 
 
 export class App {
-  openModal = () => new Modal();
+  openModal = (item) => new Modal(item);
 
   _getItems = (url) => fetch(url)
     .then(
