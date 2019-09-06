@@ -11,6 +11,7 @@ const formFields = [
     mess: 'Title field cannot be empty',
     value: '',
     errorContent: '',
+
   },
   {
     id: 'description',
@@ -100,7 +101,7 @@ export class Modal {
     this.updateButtonsControlBar(this.item);
   };
 
-  _renderButtonForCreateTask = () => {
+  _creatingButtonForCreateTask = () => {
     const buttonForCreate = createElementWithAttributes({
       tagName: 'button',
       container: this.buttonsContainer,
@@ -123,7 +124,7 @@ export class Modal {
       container: this.buttonsContainer,
       attributes: { className: 'button update-button', textContent: 'Save' },
       eventType: 'click',
-      eventHandler: this.editModal,
+      eventHandler: this.saveTaskChanges,
     });
   }
 
@@ -131,7 +132,6 @@ export class Modal {
     const modalButtons = item.id
       ? this._renderButtonsForEditTask(item.id)
       : this._renderButtonForCreateTask();
-    console.log('item', item);
     return modalButtons;
   }
 

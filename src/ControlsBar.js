@@ -31,7 +31,7 @@ export class ControlsBar {
     });
   }
 
-  renderControlBar = (status, item) => {
+  renderControlBar = (status) => {
     this.wrapperControlsBar = createElementWithAttributes(
       {
         tagName: 'div',
@@ -44,7 +44,7 @@ export class ControlsBar {
       return;
     }
     if (status === 'active') {
-      this._renderControlsBarForActiveTasks(item);
+      this._renderControlsBarForActiveTasks();
       return;
     }
     console.error('isn`t valid parameter');

@@ -10,7 +10,7 @@ import { EmptyState } from './EmptyState';
 export class App {
   openModal = (item) => new Modal(item);
 
-  _getItems = (url) => fetch(url)
+  getItems = (url) => fetch(url)
     .then(
       response => response.json(),
     )
@@ -28,7 +28,7 @@ export class App {
   }
 
   _updateTasksExpiredState = async () => {
-    const items = await this._getItems(tasksUrl);
+    const items = await this.getItems(tasksUrl);
     for (let i = 0; i < items.length; i += 1) {
       const item = items[i];
       const isExpired = this._isExpiredTask(item.deadline);
@@ -42,14 +42,14 @@ export class App {
 
   renderArchiveTasksScreen = async () => {
     this._cleanContainers();
-    const items = await this._getItems(tasksArchiveUrl);
+    const items = await this.getItems(tasksArchiveUrl);
     controlBar.renderControlBar('expired');
     tasksList.updateItems(items);
   }
 
   renderActiveTasksScreen = async () => {
     this._cleanContainers();
-    const items = await this._getItems(activeTasksUrl);
+    const items = await this.getItems(activeTasksUrl);
     if (items.length) {
       controlBar.renderControlBar('active');
       tasksList.updateItems(items);

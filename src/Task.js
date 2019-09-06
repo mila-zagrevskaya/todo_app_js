@@ -121,7 +121,6 @@ export class Task {
 
   editTask = () => {
     app.openModal(this.item);
-    console.log('task update');
   }
 
   _updateDoneStatus = (item) => fetch(`${tasksUrl}/${item.id}`, {
