@@ -17,7 +17,6 @@ export class App {
     archiveTasks.map(item => {
       if (!items.find(task => task.id === item.id)) {
         items.push(item);
-        console.log('item');
       }
     });
     return items;
