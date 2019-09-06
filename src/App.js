@@ -1,6 +1,6 @@
 import { Modal } from './Modal';
 import {
-  tasksUrl, tasksArchiveUrl, activeTasksUrl,
+  tasksUrl, activeTasksUrl, expireTasksUrl, tasksdoneStatusUrl,
 } from './constans';
 import { tasksContainer, containerForEmptyScreen } from './wrapper';
 import { controlBar, tasksList } from './index';
@@ -8,6 +8,24 @@ import { EmptyState } from './EmptyState';
 
 
 export class App {
+  _getUrlForArchiveTasks = async () => {
+    const expireItems = await this.getItems(expireTasksUrl);
+    const doneItems = await this.getItems(tasksdoneStatusUrl);
+    const archiveTasks = doneItems.concat(expireItems);
+
+
+    // eslint-disable-next-line no-return-assign
+    const items = archiveTasks.reduce((result, item) => (result.map[item.id]
+      ? result
+
+      // eslint-disable-next-line no-param-reassign
+      : ((result.map[item.id] = true), result.cities.push(item), result)), {
+      map: {},
+      cities: [],
+    }).cities;
+    return items;
+  }
+
   openModal = (item) => new Modal(item);
 
   getItems = (url) => fetch(url)
@@ -42,7 +60,7 @@ export class App {
 
   renderArchiveTasksScreen = async () => {
     this._cleanContainers();
-    const items = await this.getItems(tasksArchiveUrl);
+    const items = await this._getUrlForArchiveTasks();
     controlBar.renderControlBar('expired');
     tasksList.updateItems(items);
   }
@@ -50,6 +68,7 @@ export class App {
   renderActiveTasksScreen = async () => {
     this._cleanContainers();
     const items = await this.getItems(activeTasksUrl);
+    this._getUrlForArchiveTasks();
     if (items.length) {
       controlBar.renderControlBar('active');
       tasksList.updateItems(items);
