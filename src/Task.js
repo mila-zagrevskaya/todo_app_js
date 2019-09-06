@@ -123,15 +123,10 @@ export class Task {
     app.openModal(this.item);
   }
 
-  _updateDoneStatus = (item) => fetch(`${tasksUrl}/${item.id}`, {
-    method: 'PATCH',
-    headers: { 'Content-type': 'application/json' },
-    body: JSON.stringify({ doneStatus: item.doneStatus }),
-  });
-
   changeDoneStatus = async () => {
+    app.renderArchiveTasksScreen();
     this.item.doneStatus = !this.item.doneStatus;
     this._getIsDoneColor(this.item.doneStatus);
-    await this._updateDoneStatus(this.item);
+    await app.updateItems(this.item);
   }
 }

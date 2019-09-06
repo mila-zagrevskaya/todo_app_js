@@ -8,20 +8,6 @@ import { EmptyState } from './EmptyState';
 
 
 export class App {
-  _getUrlForArchiveTasks = async () => {
-    const expireItems = await this.getItems(expireTasksUrl);
-    const doneItems = await this.getItems(tasksdoneStatusUrl);
-    const archiveTasks = [...doneItems, ...expireItems];
-
-    const items = [];
-    archiveTasks.map(item => {
-      if (!items.find(task => task.id === item.id)) {
-        items.push(item);
-      }
-    });
-    return items;
-  }
-
   openModal = (item) => new Modal(item);
 
   getItems = (url) => fetch(url)
@@ -29,10 +15,10 @@ export class App {
       response => response.json(),
     )
 
-  _updateExpiredState = (item) => fetch(`${tasksUrl}/${item.id}`, {
-    method: 'PATCH',
+  updateItems = (item) => fetch(`${tasksUrl}/${item.id}`, {
+    method: 'PUT',
     headers: { 'Content-type': 'application/json' },
-    body: JSON.stringify({ expired: item.expired }),
+    body: JSON.stringify(item),
   })
 
   _isExpiredTask = (deadline) => {
@@ -49,9 +35,22 @@ export class App {
       if (isExpired !== item.expired) {
         item.expired = isExpired;
         // eslint-disable-next-line no-await-in-loop
-        await this._updateExpiredState(item);
+        await this.updateItems(item);
       }
     }
+  }
+
+  _getUrlForArchiveTasks = async () => {
+    const expireItems = await this.getItems(expireTasksUrl);
+    const doneItems = await this.getItems(tasksdoneStatusUrl);
+    const archiveTasks = [...doneItems, ...expireItems];
+    const items = [];
+    archiveTasks.map(item => {
+      if (!items.find(task => task.id === item.id)) {
+        items.push(item);
+      }
+    });
+    return items;
   }
 
   renderArchiveTasksScreen = async () => {

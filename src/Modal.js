@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { createElementWithAttributes } from './createElementWithAttributes';
 import { wrapper } from './wrapper';
 import { tasksUrl } from './constans';
@@ -111,7 +112,8 @@ export class Modal {
     });
   }
 
-  _creatingButtonsForEditTask = (item) => {
+  _creatingButtonsForEditTask = () => {
+    this.fillFormFields(this.item);
     this.buttonForCancel = createElementWithAttributes({
       tagName: 'button',
       container: this.buttonsContainer,
@@ -124,7 +126,7 @@ export class Modal {
       container: this.buttonsContainer,
       attributes: { className: 'button update-button', textContent: 'Save' },
       eventType: 'click',
-      eventHandler: this.saveTaskChanges,
+      eventHandler: this.saveTaskChanges(this.item),
     });
   }
 
@@ -135,6 +137,26 @@ export class Modal {
     return modalButtons;
   }
 
+  fillFormFields = (item) => {
+    formFields.forEach(el => {
+      const parentNode = document.getElementById(el.id);
+      const itemValue = item[el.id];
+
+      const valueFormField = el.id === 'deadline'
+        ? new Date(itemValue).toISOString()
+        : itemValue;
+      this._updateField(parentNode, valueFormField);
+      const inputElement = parentNode.querySelector('.form-control');
+      inputElement.value = valueFormField;
+
+      console.log('inputElement', inputElement.value);
+      console.log('valueFormField', valueFormField);
+    });
+  }
+
+  saveTaskChanges = (item) => {
+    app.updateItems(item);
+  }
 
   getFieldWrapper = (id) => {
     const fieldWrapper = createElementWithAttributes({
