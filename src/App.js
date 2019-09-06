@@ -11,18 +11,15 @@ export class App {
   _getUrlForArchiveTasks = async () => {
     const expireItems = await this.getItems(expireTasksUrl);
     const doneItems = await this.getItems(tasksdoneStatusUrl);
-    const archiveTasks = doneItems.concat(expireItems);
+    const archiveTasks = [...doneItems, ...expireItems];
 
-
-    // eslint-disable-next-line no-return-assign
-    const items = archiveTasks.reduce((result, item) => (result.map[item.id]
-      ? result
-
-      // eslint-disable-next-line no-param-reassign
-      : ((result.map[item.id] = true), result.cities.push(item), result)), {
-      map: {},
-      cities: [],
-    }).cities;
+    const items = [];
+    archiveTasks.map(item => {
+      if (!items.find(task => task.id === item.id)) {
+        items.push(item);
+        console.log('item');
+      }
+    });
     return items;
   }
 
