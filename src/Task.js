@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { createElementWithAttributes } from './createElementWithAttributes';
 import { app } from './index';
-import { tasksUrl } from './constans';
+// import { tasksUrl } from './constans';
 
 export class Task {
   constructor(item) {
