@@ -159,7 +159,7 @@ export class Modal {
       doneStatus: this.item.doneStatus,
       expired: this.item.expired,
     };
-    app.updateItems(changedItem);
+    app.updateTask(changedItem);
     this.formContainer.remove();
     app.init();
   }

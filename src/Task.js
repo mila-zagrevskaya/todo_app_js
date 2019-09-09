@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { createElementWithAttributes } from './createElementWithAttributes';
 import { app } from './index';
-// import { tasksUrl } from './constans';
 
 export class Task {
   constructor(item) {
@@ -124,9 +123,9 @@ export class Task {
   }
 
   changeDoneStatus = async () => {
-    app.renderArchiveTasksScreen();
+    app.init();
     this.item.doneStatus = !this.item.doneStatus;
     this._getIsDoneColor(this.item.doneStatus);
-    await app.updateItems(this.item);
+    await app.updateTask(this.item);
   }
 }

@@ -15,7 +15,7 @@ export class App {
       response => response.json(),
     )
 
-  updateItems = (item) => fetch(`${tasksUrl}/${item.id}`, {
+  updateTask = (item) => fetch(`${tasksUrl}/${item.id}`, {
     method: 'PUT',
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify(item),
@@ -35,7 +35,7 @@ export class App {
       if (isExpired !== item.expired) {
         item.expired = isExpired;
         // eslint-disable-next-line no-await-in-loop
-        await this.updateItems(item);
+        await this.updateItem(item);
       }
     }
   }
