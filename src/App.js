@@ -40,7 +40,7 @@ export class App {
     }
   }
 
-  _getUrlForArchiveTasks = async () => {
+  _getArchiveTasks = async () => {
     const expireItems = await this.getItems(expireTasksUrl);
     const doneItems = await this.getItems(tasksdoneStatusUrl);
     const archiveTasks = [...doneItems, ...expireItems];
@@ -55,7 +55,7 @@ export class App {
 
   renderArchiveTasksScreen = async () => {
     this._cleanContainers();
-    const items = await this._getUrlForArchiveTasks();
+    const items = await this._getArchiveTasks();
     controlBar.renderControlBar('expired');
     tasksList.updateItems(items);
   }
@@ -63,7 +63,7 @@ export class App {
   renderActiveTasksScreen = async () => {
     this._cleanContainers();
     const items = await this.getItems(activeTasksUrl);
-    this._getUrlForArchiveTasks();
+    this._getArchiveTasks();
     if (items.length) {
       controlBar.renderControlBar('active');
       tasksList.updateItems(items);
