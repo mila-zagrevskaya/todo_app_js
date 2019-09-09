@@ -112,7 +112,6 @@ export class Modal {
   }
 
   _creatingButtonsForEditTask = () => {
-    this._fillFormFields(this.item);
     this.buttonForCancel = createElementWithAttributes({
       tagName: 'button',
       container: this.buttonsContainer,
@@ -132,7 +131,8 @@ export class Modal {
   _updateButtonsControlBar = () => {
     const { id } = this.item;
     const modalButtons = id
-      ? this._creatingButtonsForEditTask()
+      ? (this._creatingButtonsForEditTask(),
+      this._fillFormFields(this.item))
       : this._creatingButtonForCreateTask();
     return modalButtons;
   }
