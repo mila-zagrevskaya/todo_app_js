@@ -42,7 +42,7 @@ export class Modal {
       container: wrapper,
       attributes: { className: 'modal' },
       eventType: 'click',
-      eventHandler: this.closeModal,
+      eventHandler: this._closeModal,
     });
 
     this.todoForm = createElementWithAttributes({
@@ -50,7 +50,7 @@ export class Modal {
       container: this.formContainer,
       attributes: { className: 'todo-form modal-content' },
       eventType: 'submit',
-      eventHandler: this.sendForm,
+      eventHandler: this._sendForm,
     });
 
     this.todoClose = createElementWithAttributes({
@@ -58,30 +58,30 @@ export class Modal {
       container: this.todoForm,
       attributes: { className: 'icon-close close' },
       eventType: 'click',
-      eventHandler: this.closeModal,
+      eventHandler: this._closeModal,
     });
 
-    const titleWrap = this.getFieldWrapper('title');
+    const titleWrap = this._getFieldWrapper('title');
 
     const title = createElementWithAttributes({
       tagName: 'input',
       container: titleWrap,
       attributes: { type: 'text', className: 'form-control', placeholder: 'Title' },
       eventType: 'input',
-      eventHandler: this.onChangeHandler,
+      eventHandler: this._onChangeHandler,
     });
 
-    const descriptionWrap = this.getFieldWrapper('description');
+    const descriptionWrap = this._getFieldWrapper('description');
 
     const description = createElementWithAttributes({
       tagName: 'textarea',
       container: descriptionWrap,
       attributes: { className: 'form-control', placeholder: 'Description', rows: '3' },
       eventType: 'input',
-      eventHandler: this.onChangeHandler,
+      eventHandler: this._onChangeHandler,
     });
 
-    const deadlineWrap = this.getFieldWrapper('deadline');
+    const deadlineWrap = this._getFieldWrapper('deadline');
 
     const deadline = createElementWithAttributes({
       tagName: 'input',
@@ -90,7 +90,7 @@ export class Modal {
         type: 'datetime-local', className: 'form-control', placeholder: 'Deadline', min: new Date().getTime(),
       },
       eventType: 'input',
-      eventHandler: this.onChangeHandler,
+      eventHandler: this._onChangeHandler,
     });
 
     this.buttonsContainer = createElementWithAttributes({
@@ -98,27 +98,27 @@ export class Modal {
       container: this.todoForm,
       attributes: { className: 'buttons-container' },
     });
-    this.updateButtonsControlBar(this.item);
+    this._updateButtonsControlBar();
   };
 
   _creatingButtonForCreateTask = () => {
     const buttonForCreate = createElementWithAttributes({
       tagName: 'button',
       container: this.buttonsContainer,
-      attributes: { className: 'button create-button', textContent: 'Create', type: 'submit' },
-      eventType: 'submit',
-      eventHandler: this.sendForm,
+      attributes: { className: 'button create-button', textContent: 'Create', type: 'button' },
+      eventType: 'click',
+      eventHandler: this._sendForm,
     });
   }
 
   _creatingButtonsForEditTask = () => {
-    this.fillFormFields(this.item);
+    this._fillFormFields(this.item);
     this.buttonForCancel = createElementWithAttributes({
       tagName: 'button',
       container: this.buttonsContainer,
       attributes: { className: 'button cancel-button', textContent: 'Cancel' },
       eventType: 'click',
-      eventHandler: this.closeModal,
+      eventHandler: this._closeModal,
     });
     const buttonForSaveEdit = createElementWithAttributes({
       tagName: 'button',
@@ -129,7 +129,7 @@ export class Modal {
     });
   }
 
-  updateButtonsControlBar = () => {
+  _updateButtonsControlBar = () => {
     const { id } = this.item;
     const modalButtons = id
       ? this._creatingButtonsForEditTask()
@@ -137,7 +137,7 @@ export class Modal {
     return modalButtons;
   }
 
-  fillFormFields = (item) => {
+  _fillFormFields = (item) => {
     formFields.forEach(el => {
       const parentNode = document.getElementById(el.id);
       const itemValue = item[el.id];
@@ -165,7 +165,7 @@ export class Modal {
     app.init();
   }
 
-  getFieldWrapper = (id) => {
+  _getFieldWrapper = (id) => {
     const fieldWrapper = createElementWithAttributes({
       tagName: 'div',
       container: this.todoForm,
@@ -179,7 +179,7 @@ export class Modal {
     return fieldWrapper;
   }
 
-  closeModal = (ev) => {
+  _closeModal = (ev) => {
     if (
       ev.target === this.formContainer
       || ev.target === this.todoClose
@@ -198,7 +198,7 @@ export class Modal {
     return isError;
   }
 
-  onChangeHandler = ({ target }) => {
+  _onChangeHandler = ({ target }) => {
     const { parentNode, value } = target;
     this._updateField(parentNode, value);
   }
@@ -231,7 +231,7 @@ export class Modal {
     });
   };
 
-  sendForm = async (event) => {
+  _sendForm = async (event) => {
     event.preventDefault();
     let isValidForm = true;
     formFields.map((el) => {

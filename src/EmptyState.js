@@ -28,7 +28,7 @@ export class EmptyState {
       container: startBox,
       attributes: { className: 'archive', textContent: 'Show resolved todos' },
       eventType: 'click',
-      eventHandler: app.renderArchiveTasksScreen,
+      eventHandler: app.renderArchivedTasksScreen,
     });
   }
 }

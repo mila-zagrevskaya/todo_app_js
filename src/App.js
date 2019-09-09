@@ -23,8 +23,8 @@ export class App {
 
   _isExpiredTask = (deadline) => {
     const date = new Date().getTime();
-    const expire = date >= deadline;
-    return expire;
+    const expired = date >= deadline;
+    return expired;
   }
 
   _updateTasksExpiredState = async () => {
@@ -41,9 +41,9 @@ export class App {
   }
 
   _getArchivedTasks = async () => {
-    const expireItems = await this._getItems(expireTasksUrl);
+    const expiredItems = await this._getItems(expireTasksUrl);
     const doneItems = await this._getItems(tasksdoneStatusUrl);
-    const archiveTasks = [...doneItems, ...expireItems];
+    const archiveTasks = [...doneItems, ...expiredItems];
     const items = [];
     archiveTasks.map(item => {
       if (!items.find(task => task.id === item.id)) {
@@ -53,7 +53,7 @@ export class App {
     return items;
   }
 
-  renderArchiveTasksScreen = async () => {
+  renderArchivedTasksScreen = async () => {
     this._cleanContainers();
     const items = await this._getArchivedTasks();
     controlBar.renderControlBar('expired');

@@ -5,18 +5,18 @@ import { app } from './index';
 export class Task {
   constructor(item) {
     this.item = item;
-    this.init();
+    this._init();
   }
 
-  init = () => {
+  _init = () => {
     const { deadline } = this.item;
     const time = this._countTime(deadline);
     this.formatedTime = this._getFormatedTime(time);
     this.taskColor = this._getTaskColor(time);
-    this.renderTaskItems();
+    this._renderTaskItems();
   };
 
-  renderTaskItems = () => {
+  _renderTaskItems = () => {
     const {
       contentWrap, id, expired, title, description, doneStatus,
     } = this.item;
@@ -38,14 +38,14 @@ export class Task {
       container: iconBox,
       attributes: { className: 'icon-checkmark', style: `color: ${this._getIsDoneColor(this.item.doneStatus)}` },
       eventType: 'click',
-      eventHandler: this.changeDoneStatus,
+      eventHandler: this._changeDoneStatus,
     });
     const iconEdit = createElementWithAttributes({
       tagName: 'span',
       container: iconBox,
       attributes: { className: 'icon-edit-pencil' },
       eventType: 'click',
-      eventHandler: this.editTask,
+      eventHandler: this._editTask,
     });
 
     const titleTask = createElementWithAttributes({
@@ -118,11 +118,11 @@ export class Task {
     return color;
   }
 
-  editTask = () => {
+  _editTask = () => {
     app.openModal(this.item);
   }
 
-  changeDoneStatus = async () => {
+  _changeDoneStatus = async () => {
     app.init();
     this.item.doneStatus = !this.item.doneStatus;
     this._getIsDoneColor(this.item.doneStatus);
