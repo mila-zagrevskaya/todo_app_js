@@ -125,13 +125,14 @@ export class Modal {
       container: this.buttonsContainer,
       attributes: { className: 'button update-button', type: 'button', textContent: 'Save' },
       eventType: 'click',
-      eventHandler: this.saveTaskChanges,
+      eventHandler: this._saveTaskChanges,
     });
   }
 
-  updateButtonsControlBar = (item) => {
-    const modalButtons = item.id
-      ? this._creatingButtonsForEditTask(item.id)
+  updateButtonsControlBar = () => {
+    const { id } = this.item;
+    const modalButtons = id
+      ? this._creatingButtonsForEditTask()
       : this._creatingButtonForCreateTask();
     return modalButtons;
   }
@@ -150,7 +151,7 @@ export class Modal {
     });
   }
 
-  saveTaskChanges = () => {
+  _saveTaskChanges = () => {
     const changedItem = {
       title: formFields[0].value,
       description: formFields[1].value,

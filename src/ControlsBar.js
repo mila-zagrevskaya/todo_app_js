@@ -3,7 +3,7 @@ import { app } from './index';
 import { tasksContainer } from './wrapper';
 
 export class ControlsBar {
-  _renderControlsBarForActiveTasks = (item) => {
+  _renderControlsBarForActiveTasks = () => {
     const buttonAddTodo = createElementWithAttributes({
       tagName: 'button',
       container: this.wrapperControlsBar,
