@@ -98,7 +98,7 @@ export class Modal {
       container: this.todoForm,
       attributes: { className: 'buttons-container' },
     });
-    this._updateButtonsControlBar();
+    this._updateModal();
   };
 
   _creatingButtonForCreateTask = () => {
@@ -128,13 +128,14 @@ export class Modal {
     });
   }
 
-  _updateButtonsControlBar = () => {
+  _updateModal = () => {
     const { id } = this.item;
-    const modalButtons = id
-      ? (this._creatingButtonsForEditTask(),
-      this._fillFormFields(this.item))
-      : this._creatingButtonForCreateTask();
-    return modalButtons;
+    if (id) {
+      this._creatingButtonsForEditTask();
+      this._fillFormFields(this.item);
+      return;
+    }
+    this._creatingButtonForCreateTask();
   }
 
   _fillFormFields = (item) => {
