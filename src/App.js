@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Modal } from './Modal';
 import {
   tasksUrl, activeTasksUrl, expireTasksUrl, tasksdoneStatusUrl,
@@ -5,6 +6,13 @@ import {
 import { tasksContainer, containerForEmptyScreen } from './wrapper';
 import { controlBar, tasksList } from './index';
 import { EmptyState } from './EmptyState';
+=======
+import { wrapper } from './wrapper';
+import { Modal } from './modal';
+import { tasksUrl } from './index';
+import { EmptyState } from './emptyState';
+import { TasksList } from './tasksList';
+>>>>>>> 60607f2338913a7204617e56e3c09b556365fc68
 
 
 export class App {

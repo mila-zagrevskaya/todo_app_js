@@ -61,12 +61,18 @@
 }
 .icon-arrow-left-thick:before,
 .icon-arrow-thick-left:before {
+<<<<<<< HEAD
   color: #508775;
+=======
+>>>>>>> 60607f2338913a7204617e56e3c09b556365fc68
   display: inline-block;
   content: "\e902";
   font-size: 3em;
   margin: 15px 5px 19px;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 60607f2338913a7204617e56e3c09b556365fc68
 }
 .icon-arrow-thick-left:before {
   content: "\e906";
